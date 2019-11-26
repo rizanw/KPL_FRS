@@ -1,13 +1,13 @@
 <?php
 
+namespace Kel5\FRS\Controllers\Web;
+
 use Phalcon\Mvc\Controller;
 
-
-class FRSController extends Controller
+class FrsController extends Controller
 {
     public function indexAction()
     {
-        return $this->view->pick('home');
+         return $this->view->pick('home');
     }
-
 }

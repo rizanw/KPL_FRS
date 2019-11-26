@@ -13,12 +13,12 @@ class Module implements ModuleDefinitionInterface
         $loader = new Loader();
 
         $loader->registerNamespaces([
-            'Idy\Idea\Domain\Model' => __DIR__ . '/domain/model',
-            'Idy\Idea\Infrastructure' => __DIR__ . '/infrastructure',
-            'Idy\Idea\Application' => __DIR__ . '/application',
-            'Idy\Idea\Controllers\Web' => __DIR__ . '/controllers/web',
-            'Idy\Idea\Controllers\Api' => __DIR__ . '/controllers/api',
-            'Idy\Idea\Controllers\Validators' => __DIR__ . '/controllers/validators',
+            'Kel5\FRS\Domain\Model' => __DIR__ . '/domain/model',
+            'Kel5\FRS\Infrastructure' => __DIR__ . '/infrastructure',
+            'Kel5\FRS\Application' => __DIR__ . '/application',
+            'Kel5\FRS\Controllers\Web' => __DIR__ . '/controllers/web',
+            'Kel5\FRS\Controllers\Api' => __DIR__ . '/controllers/api',
+            'Kel5\FRS\Controllers\Validators' => __DIR__ . '/controllers/validators',
         ]);
 
         $loader->register();

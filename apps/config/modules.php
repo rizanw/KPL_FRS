@@ -1,5 +1,4 @@
 <?php
-
 return array(
     'frs' => [
         'namespace' => 'Kel5\FRS',
@@ -8,8 +7,7 @@ return array(
         'className' => 'Kel5\FRS\Module',
         'path' => APP_PATH . '/modules/frs/Module.php',
         'defaultRouting' => true,
-        'defaultController' => 'frs',
+        'defaultController' => 'Frs',
         'defaultAction' => 'index'
     ],
-
 );
