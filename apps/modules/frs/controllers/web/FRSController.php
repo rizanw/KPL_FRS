@@ -8,6 +8,6 @@ class FrsController extends Controller
 {
     public function indexAction()
     {
-         return $this->view->pick('home');
+         return $this->view->pick('dosen/anak_wali');
     }
 }
