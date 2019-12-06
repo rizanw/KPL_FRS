@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{% block title %}{% endblock %} - Formulir Rencana Studi (FRS)</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url('assets/css/bootstrap.min.css') }}">
     <style>
     body{
         font-size: 0.8rem;
@@ -34,9 +34,10 @@
         {% endblock %}
     </div>
 
-    <script src="assets/js/jquery-3.4.1.min.js"></script>
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="{{ url('assets/js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url('assets/js/popper.min.js') }}"></script>
+    <script src="{{ url('assets/js/bootstrap.min.js') }}"></script>
+
     {% block script %}
     {% endblock %}
 </body>
