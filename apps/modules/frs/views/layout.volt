@@ -1,56 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <meta name="description" content="Idea Brainstorming">
-    <meta name="author" content="Rizky Januar Akbar">
-    <title>{% block title %}{% endblock %} &bullet; Idy</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="{{ url('assets/css/bootstrap.min.css') }}" rel="stylesheet">
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>{% block title %}{% endblock %} - Formulir Rencana Studi (FRS)</title>
+    <link rel="stylesheet" href="{{ url('assets/css/bootstrap.min.css') }}">
     <style>
-        body {
-            padding-top: 5rem;
-        }
-
-        .content {
-            padding: 3rem 1.5rem;
-        }
-
+    body{
+        font-size: 0.8rem;
+    }
     </style>
-
-    {% block styles %}{% endblock %}
-
+    {% block style %}{% endblock %}
 </head>
+
 <body>
-    
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="#">Idy</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">FRS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <div class="form-inline ml-auto my-2 my-lg-0">
-                <a href="{{ url('idea/idea/add')}}" class="btn btn-secondary my-2 my-sm-0">Add new</a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
             </div>
         </div>
     </nav>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
 
-    <main role="main" class="container">
-        <div class="content">
-            {% block content %}{% endblock %}
-        </div>
-    </main>
+    <script src="{{ url('assets/js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url('assets/js/popper.min.js') }}"></script>
+    <script src="{{ url('assets/js/bootstrap.min.js') }}"></script>
 
-    <script src="{{ url('assets/js/jquery-3.4.1.js') }}"></script>
-    <script src="{{ url('assets/js/bootstrap.bundle.min.js') }}"></script>
-
-    {% block scripts %}{% endblock %}
+    {% block script %}
+    {% endblock %}
 </body>
+
 </html>
-
-

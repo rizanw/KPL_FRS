@@ -10,4 +10,9 @@ class FrsController extends Controller
     {
          return $this->view->pick('home');
     }
+
+    public function frsAction()
+    {
+        return $this->view->pick('kelas');
+    }
 }
