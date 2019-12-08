@@ -1,4 +1,4 @@
-{% extends 'layout.volt' %}
+{% extends 'mahasiswa/layout.volt' %}
 
 {% block title %}Home{% endblock %}
 
