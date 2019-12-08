@@ -1,6 +1,6 @@
-{% extends 'layout.volt' %}
+{% extends 'dosen/layout.volt' %}
 
-{% block title %}Daftar Peserta Konstrukti Perangkat Lunak - _{% endblock %}
+{% block title %}Daftar Anak Wali{% endblock %}
 
 {% block styles %}
 
