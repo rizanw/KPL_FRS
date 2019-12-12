@@ -8,18 +8,17 @@ class FrsController extends Controller
 {
     public function indexAction()
     {
-
         return $this->view->pick('mahasiswa/home');
     }
 
-    public function kelasAction()
+    public function frsAction()
     {
-        return $this->view->pick('kelas');
+        return $this->view->pick('mahasiswa/frs');
     }
 
     public function ambilkelasAction()
     {
-        return $this->view->pick('ambil');
+        return $this->view->pick('mahasiswa/ambil');
     }
 
     public function dropkelasAction()
@@ -32,5 +31,10 @@ class FrsController extends Controller
     {
         # code...
         return $this->view->pick('mahasiswa/cetak');
+    }
+
+    public function kelasAction()
+    {
+        return $this->view->pick('kelas');
     }
 }

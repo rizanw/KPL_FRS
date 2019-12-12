@@ -7,38 +7,19 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid text-center">
-        <h2>Daftar Anak Wali</h2>
-    </div>
+<div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <table class="table table-bordered">
-            <thead class="thead-light">
-            <tr>
-                <th >NO</th>
-                <th >NRP</th>
-                <th >Nama</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td> 1</td>
-                <td> 05111640000043</td>
-                <td>MUHAMMAD ARRAFI</td>
-            </tr>
-            <tr>
-                <td> 2</td>
-                <td> 05111740000082</td>
-                <td>INDIRA NURSYAMSINA HAZIMI</td>
-            </tr>
-            <tr>
-                <td> 3</td>
-                <td> 05111740000183</td>
-                <td>RIZKY ANDRE WIBISONO</td>
-            </tr>
-            </tbody>
-        </table>
+        <h1 class="display-4">Selamat Datang di Modul FRS!</h1>
+        <hr class="my-4">
+        <h4>Menu : </h4>
+        <p class="lead">
+            <ul style="list-style: none;">
+                <li><a href="#">Daftar Anak Wali</a></li>
+                <li><a href="#">Daftar Anak Wali</a></li>
+            </ul>
+        </p>
     </div>
-
+</div>
 {% endblock %}
 
 {% block scripts %}
