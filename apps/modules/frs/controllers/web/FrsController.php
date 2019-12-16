@@ -19,11 +19,6 @@ class FrsController extends Controller
         return $this->view->pick('mahasiswa/frs');
     }
 
-    public function ambilkelasAction()
-    {
-        return $this->view->pick('mahasiswa/ambil');
-    }
-
     public function dropkelasAction()
     {
         # code...
