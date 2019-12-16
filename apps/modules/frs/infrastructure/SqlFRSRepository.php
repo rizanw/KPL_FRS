@@ -10,8 +10,6 @@ use Kel5\FRS\Domain\Model\Mahasiswa;
 use Kel5\FRS\Domain\Model\Dosen;
 use Kel5\FRS\Domain\Model\mahasiswaNrp;
 
-use Phalcon\DiInterface;
-
 
 class SqlFRSRepository implements FRSRepository
 {
@@ -25,10 +23,7 @@ class SqlFRSRepository implements FRSRepository
     public function getMahasiswaByNrp(MahasiswaNrp $nrp): ?Mahasiswa
     {
         $db = $this->di->getShared('db');
-    public function ambilKelasDept() : array
-    {
-        $db =  $this->di->getShared('db');
-        $sql = "Select * from kelas inner join dosen ON dosen.nip = kelas.dosen where is_upmb = 0";
+
 
         $sql = "SELECT * FROM mahasiswa WHERE nrp = :nrp";
 
@@ -99,6 +94,11 @@ class SqlFRSRepository implements FRSRepository
         }
         return null;
     }
+
+    public function ambilKelasDept() : array
+    {
+        $db =  $this->di->getShared('db');
+        $sql = "Select * from kelas inner join dosen ON dosen.nip = kelas.dosen where is_upmb = 0";
         $result = $db->fetchAll($sql, \Phalcon\Db::FETCH_ASSOC);
         $resultArray= array();
 

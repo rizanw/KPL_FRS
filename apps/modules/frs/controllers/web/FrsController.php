@@ -18,6 +18,7 @@ class FrsController extends Controller
 
     public function frsAction()
     {
+        $frsRepository = $this->di->getShared('sql_frs_repository');
         $service = new MenampilkanKelasService($frsRepository);
         $responseKelasDept = $service->executeDept();
         $responseKelasUpmb = $service->executeDept();
