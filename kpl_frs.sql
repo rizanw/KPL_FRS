@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Des 2019 pada 03.58
+-- Waktu pembuatan: 16 Des 2019 pada 20.26
 -- Versi server: 10.1.32-MariaDB
 -- Versi PHP: 7.2.5
 
@@ -50,7 +50,9 @@ INSERT INTO `dosen` (`nip`, `nama`) VALUES
 CREATE TABLE `frs` (
   `id_frs` varchar(8) NOT NULL,
   `nrp` char(14) NOT NULL,
-  `is_Setuju` tinyint(1) DEFAULT NULL
+  `is_Setuju` tinyint(1) DEFAULT NULL,
+  `periode` tinyint(1) DEFAULT NULL,
+  `tahun` year(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -64,24 +66,27 @@ CREATE TABLE `kelas` (
   `mata_kuliah` varchar(32) NOT NULL,
   `kode_matkul` varchar(8) NOT NULL,
   `sks` int(11) NOT NULL,
-  `grup` char(1) NOT NULL,
+  `grup` varchar(4) NOT NULL,
   `kapasitas` int(11) DEFAULT NULL,
   `dosen` char(18) NOT NULL,
   `ruang` varchar(16) DEFAULT NULL,
   `Waktu_mulai` time DEFAULT NULL,
   `waktu_selesai` time DEFAULT NULL,
-  `periode` binary(1) DEFAULT NULL,
-  `tahun` year(4) DEFAULT NULL
+  `periode` tinyint(1) DEFAULT NULL,
+  `tahun` year(4) DEFAULT NULL,
+  `is_upmb` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `kelas`
 --
 
-INSERT INTO `kelas` (`id_kelas`, `mata_kuliah`, `kode_matkul`, `sks`, `grup`, `kapasitas`, `dosen`, `ruang`, `Waktu_mulai`, `waktu_selesai`, `periode`, `tahun`) VALUES
-('KIF19001', 'Pra-TA', 'IF184702', 3, 'A', 30, '198410162008121002', 'IF-103', '07:30:00', '10:30:00', 0x30, 2019),
-('KIF19002', 'Konstruksi Perangkat Lunak', 'IF184974', 3, 'A', 30, '198410162008121002', 'IF-103', '07:30:00', '10:30:00', 0x30, 2019),
-('KIF19003', 'Sistem Basis Data', 'IF184702', 3, 'A', 30, '198410162008121002', 'IF-103', '07:30:00', '10:30:00', 0x30, 2019);
+INSERT INTO `kelas` (`id_kelas`, `mata_kuliah`, `kode_matkul`, `sks`, `grup`, `kapasitas`, `dosen`, `ruang`, `Waktu_mulai`, `waktu_selesai`, `periode`, `tahun`, `is_upmb`) VALUES
+('KIF19001', 'Pra-TA', 'IF184702', 3, 'A', 30, '198410162008121002', 'IF-103', '07:30:00', '10:30:00', 0, 2019, 0),
+('KIF19002', 'Konstruksi Perangkat Lunak', 'IF184974', 3, 'A', 30, '198410162008121002', 'IF-103', '07:30:00', '10:30:00', 0, 2019, 0),
+('KIF19003', 'Sistem Basis Data', 'IF184702', 3, 'A', 30, '198410162008121002', 'IF-103', '07:30:00', '10:30:00', 0, 2019, 0),
+('UP190001', 'Fisika', 'FIS18497', 3, '12', 30, '198410162008121002', 'IF-103', '07:30:00', '10:30:00', 0, 2019, 1),
+('UP190002', 'Teknopreneur', 'Tek18470', 3, '23', 30, '198410162008121002', 'IF-103', '07:30:00', '10:30:00', 0, 2019, 1);
 
 -- --------------------------------------------------------
 
@@ -104,48 +109,20 @@ CREATE TABLE `kelasterpilih` (
 CREATE TABLE `mahasiswa` (
   `nrp` char(14) NOT NULL,
   `nama` varchar(31) NOT NULL,
-  `IPK` int(11) NOT NULL,
-  `doswal` char(18) DEFAULT NULL
+  `ipk` float DEFAULT NULL,
+  `doswal` char(18) DEFAULT NULL,
+  `alamat` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`nrp`, `nama`, `IPK`, `doswal`) VALUES
-('05111640000001', 'Andre', 4, '198410162008121002'),
-('05111640000002', 'Jimi', 4, '198410162008121002'),
-('05111640000003', 'Hazimi', 4, '198410162008121002'),
-('05111640000043', 'Arrafi', 3, '198410162008121002');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `upmb`
---
-
-CREATE TABLE `upmb` (
-  `id_upmb` varchar(8) NOT NULL,
-  `mata_kuliah` varchar(32) NOT NULL,
-  `kode_matkul` varchar(8) NOT NULL,
-  `sks` int(11) NOT NULL,
-  `grup` char(2) NOT NULL,
-  `kapasitas` int(11) DEFAULT NULL,
-  `dosen` char(18) NOT NULL,
-  `ruang` varchar(16) DEFAULT NULL,
-  `Waktu_mulai` time DEFAULT NULL,
-  `waktu_selesai` time DEFAULT NULL,
-  `periode` binary(1) DEFAULT NULL,
-  `tahun` year(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `upmb`
---
-
-INSERT INTO `upmb` (`id_upmb`, `mata_kuliah`, `kode_matkul`, `sks`, `grup`, `kapasitas`, `dosen`, `ruang`, `Waktu_mulai`, `waktu_selesai`, `periode`, `tahun`) VALUES
-('UP190001', 'Fisika', 'FIS18497', 3, '12', 30, '198410162008121002', 'IF-103', '07:30:00', '10:30:00', 0x30, 2019),
-('UP190002', 'Teknopreneur', 'Tek18470', 3, '23', 30, '198410162008121002', 'IF-103', '07:30:00', '10:30:00', 0x30, 2019);
+INSERT INTO `mahasiswa` (`nrp`, `nama`, `ipk`, `doswal`, `alamat`) VALUES
+('05111640000001', 'Andre', 4, '198410162008121002', NULL),
+('05111640000002', 'Jimi', 4, '198410162008121002', NULL),
+('05111640000003', 'Hazimi', 4, '198410162008121002', NULL),
+('05111640000043', 'Arrafi', 3, '198410162008121002', NULL);
 
 --
 -- Indexes for dumped tables
@@ -164,12 +141,6 @@ ALTER TABLE `frs`
   ADD PRIMARY KEY (`id_frs`);
 
 --
--- Indeks untuk tabel `kelas`
---
-ALTER TABLE `kelas`
-  ADD PRIMARY KEY (`id_kelas`);
-
---
 -- Indeks untuk tabel `kelasterpilih`
 --
 ALTER TABLE `kelasterpilih`
@@ -180,12 +151,6 @@ ALTER TABLE `kelasterpilih`
 --
 ALTER TABLE `mahasiswa`
   ADD PRIMARY KEY (`nrp`);
-
---
--- Indeks untuk tabel `upmb`
---
-ALTER TABLE `upmb`
-  ADD PRIMARY KEY (`id_upmb`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -115,7 +115,7 @@
 </head>
 
 <body class="text-center">
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-colgiumn">
         <header class="masthead mb-auto">
             <div class="inner">
                 <h3 class="masthead-brand">FRS</h3>
