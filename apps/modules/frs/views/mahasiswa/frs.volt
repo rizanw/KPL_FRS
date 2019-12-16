@@ -2,13 +2,52 @@
 
 {% block title %}Home{% endblock %}
 
-{% block styles %}
+{% block style %}
+<style>
+    /* Links */
+    a,
+    a:focus,
+    a:hover {
+        color: rgb(60, 142, 236);
+    }
 
+    .nav-masthead .nav-link {
+        padding: .25rem 0;
+        font-weight: 700;
+        color: rgb(0, 0, 0);
+        background-color: transparent;
+        border-bottom: .25rem solid transparent;
+    }
+
+    .nav-masthead .nav-link:hover,
+    .nav-masthead .nav-link:focus {
+        border-bottom-color: rgba(83, 81, 81, 0.829);
+    }
+
+    .nav-masthead .nav-link+.nav-link {
+        margin-left: 1rem;
+        color: rgb(0, 0, 0);
+    }
+
+    .nav-masthead .active {
+        color: black;
+        border-bottom-color: rgb(0, 0, 0);
+    }
+
+    .mastfoot {
+        color: rgb(0, 0, 0);
+    }
+</style>
+{% endblock %}
+
+{% block navbar %}
+<a class="nav-link" href="index">Home</a>
+<a class="nav-link active" href="frs">FRS</a>
 {% endblock %}
 
 {% block content %}
 
-<div align="center">
+<div align="center" class="mt-5 pt-3">
     <table cellpadding="4" cellspacing="0">
         <tr>
             <td align="center" class="h2">Formulir Rencana Studi (FRS)</td>
@@ -23,89 +62,72 @@
             </td>
         </tr>
     </table>
+    <div class="border py-2 mt-3">
+        <table>
+            <tr>
+                <td width="100"><strong>NRP</strong></td>
+                <td width="10" align="center"><strong>:</strong></td>
+                <td width="250">{05111740000183}</td>
+                <td width="100"><strong>Periode</strong></td>
+                <td width="10" align="center"><strong>:</strong></td>
+                <td width="260"><select name="semesterTerm" id="semesterTerm" class="ControlStyle">
+                        <option></option>
+                        <option selected='selected' value='1'>Gasal</option>
+                        <option value='2'>Genap</option>
+                    </select>
+                    <select name="thnAjaran" id="thnAjaran" class="ControlStyle">
+                        <option></option>
+                        <option selected='selected' value='2019'>2019</option>
+                        <option value='2018'>2018</option>
+                        <option value='2017'>2017</option>
+                        <option value='2016'>2016</option>
+                        <option value='2015'>2015</option>
+                        <option value='2014'>2014</option>
+                        <option value='2013'>2013</option>
+                    </select>
+                    <input type="button" class="btn btn-secondary btn-sm ml-2" value="Ganti" onClick="goGanti()" />
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Nama</strong></td>
+                <td align="center"><strong>:</strong></td>
+                <td>{RIZKY ANDRE WIBISONO}</td>
+                <td><strong>Dosen Wali</strong></td>
+                <td align="center"><strong>:</strong></td>
+                <td>{Tohari Ahmad, S.Kom., MIT., Ph.D.}</td>
+            </tr>
+            <tr>
+                <td><strong>IPK / IPS</strong></td>
+                <td align="center"><strong>:</strong></td>
+                <td> {ipk / ips} </td>
+                <td><strong>Batas / Sisa</strong></td>
+                <td align="center"><strong>:</strong></td>
+                <td>{ 24 / 2 SKS }</td>
+            </tr>
+            <!-- <tr>
+                <td><strong>Tautan</strong></td>
+                <td align="center"><strong>:</strong></td>
+                <td colspan="4">
+                    <font size="1"><a href="lv_mkulang.php?nrp=5117100183"
+                            onClick="popUp(this.href,'elastic',600,600);return false;" target="_blank">MK Harus
+                            Diulang</a> | <a href="lv_mkambil.php?nrp=5117100183"
+                            onClick="popUp(this.href,'elastic',600,600);return false;" target="_blank">MK Wajib diambil
+                            (pd saat ganti Kurikulum)</a> | <a href="lv_mkprasyarat.php?nrp=5117100183&mkThn=2019&mkSem=1"
+                            onClick="popUp(this.href,'elastic',600,600);return false;" target="_blank">Pengambilan
+                            melanggar prasyarat</a> | <a href="ekivalensi_rekapitulasi_mhs.php?edit=5117100183"
+                            onClick="popUp(this.href,'elastic',600,1000);return false;" target="_blank">Ekivalensi</a>
+                    </font>
+                </td>
+            </tr> -->
+        </table>
+    </div>
 
-    <table class="mt-4">
-        <tr>
-            <td width="100"><strong>NRP</strong></td>
-            <td width="10" align="center"><strong>:</strong></td>
-            <td width="250">{05111740000183}</td>
-            <td width="100"><strong>Periode</strong></td>
-            <td width="10" align="center"><strong>:</strong></td>
-            <td width="260"><select name="semesterTerm" id="semesterTerm" class="ControlStyle">
-                    <option></option>
-                    <option selected='selected' value='1'>Gasal</option>
-                    <option value='2'>Genap</option>
-                    <option value='3'>Pendek</option>
-                    <option value='4'>Sisipan</option>
-                </select>
-                <select name="thnAjaran" id="thnAjaran" class="ControlStyle">
-                    <option></option>
-                    <option selected='selected' value='2019'>2019</option>
-                    <option value='2018'>2018</option>
-                    <option value='2017'>2017</option>
-                    <option value='2016'>2016</option>
-                    <option value='2015'>2015</option>
-                    <option value='2014'>2014</option>
-                    <option value='2013'>2013</option>
-                    <option value='2012'>2012</option>
-                    <option value='2011'>2011</option>
-                    <option value='2010'>2010</option>
-                    <option value='2009'>2009</option>
-                    <option value='2008'>2008</option>
-                    <option value='2007'>2007</option>
-                    <option value='2006'>2006</option>
-                    <option value='2005'>2005</option>
-                    <option value='2004'>2004</option>
-                    <option value='2003'>2003</option>
-                    <option value='2002'>2002</option>
-                    <option value='2001'>2001</option>
-                    <option value='2000'>2000</option>
-                    <option value='1999'>1999</option>
-                    <option value='1998'>1998</option>
-                    <option value='1997'>1997</option>
-                    <option value='1996'>1996</option>
-                    <option value='1995'>1995</option>
-                </select>
-                <input type="button" class="btn btn-secondary btn-sm" value="Ganti" onClick="goGanti()" /> </td>
-        </tr>
-        <tr>
-            <td><strong>Nama</strong></td>
-            <td align="center"><strong>:</strong></td>
-            <td>{RIZKY ANDRE WIBISONO}</td>
-            <td><strong>Dosen Wali</strong></td>
-            <td align="center"><strong>:</strong></td>
-            <td>{Tohari Ahmad, S.Kom., MIT., Ph.D.}</td>
-        </tr>
-        <tr>
-            <td><strong>IPK / IPS</strong></td>
-            <td align="center"><strong>:</strong></td>
-            <td> {ipk / ips} </td>
-            <td><strong>Batas / Sisa</strong></td>
-            <td align="center"><strong>:</strong></td>
-            <td>{ 24 / 2 SKS }</td>
-        </tr>
-        <tr>
-            <td><strong>Tautan</strong></td>
-            <td align="center"><strong>:</strong></td>
-            <td colspan="4">
-                <font size="1"><a href="lv_mkulang.php?nrp=5117100183"
-                        onClick="popUp(this.href,'elastic',600,600);return false;" target="_blank">MK Harus
-                        Diulang</a> | <a href="lv_mkambil.php?nrp=5117100183"
-                        onClick="popUp(this.href,'elastic',600,600);return false;" target="_blank">MK Wajib diambil
-                        (pd saat ganti Kurikulum)</a> | <a href="lv_mkprasyarat.php?nrp=5117100183&mkThn=2019&mkSem=1"
-                        onClick="popUp(this.href,'elastic',600,600);return false;" target="_blank">Pengambilan
-                        melanggar prasyarat</a> | <a href="ekivalensi_rekapitulasi_mhs.php?edit=5117100183"
-                        onClick="popUp(this.href,'elastic',600,1000);return false;" target="_blank">Ekivalensi</a>
-                </font>
-            </td>
-        </tr>
-    </table>
-
-    <input type="button" class="btn btn-light btn-sm" value="Klik di sini untuk KRSM versi cetak" onClick="goPrint()">
+    <input type="button" class="btn btn-light btn-sm mt-2 mb-2" value="Klik di sini untuk KRSM versi cetak"
+        onClick="goPrint()">
 
     <table class="table table-striped mt-6" cellpadding="4" cellspacing="0">
         <thead class="thead-dark">
-            <tr>
+            <tr class="text-center">
                 <th width="70" align="center" scope="col">Kode</th>
                 <th width="270" align="center" scope="col">Mata Kuliah</th>
                 <th width="30" align="center" scope="col">SKS</th>
@@ -185,20 +207,66 @@
             </tr>
         </tbody>
     </table>
-    <p>ket : </p>
-    <table>
+    <p class="text-left">Keterangan : </p>
+    <table class="mb-2">
         <tr>
-            <td colspan="2" border="2" bgcolor="#FF3A3A"></td>
+            <td border="2" bgcolor="#FF3A3A">
+                <div class="pt-2 pl-4 pr-4"></div>
+            </td>
             <td>mahasiswa mengambil mata kuliah semester atas</td>
         </tr>
     </table>
-    <table class="table">
+    <table class="table mb-5">
         <tr height="30" bgcolor="#C6EFFF">
             <td align="center" colspan="6" style="border:1px solid #0000FF">
                 <font color="#0000FF"><strong>PERSETUJUAN TELAH DILAKUKAN</strong></font>
             </td>
         </tr>
     </table>
+    <div class="border p-3 mb-3">
+        <form>
+            <div class="form-group">
+                <label for="matkulUMPB">Mata Kuliah UPMB</label>
+                <div class="input-group">
+                    <select class="form-control" id="matkulUMPB">
+                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
+                        </option>
+                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
+                        </option>
+                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
+                        </option>
+                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
+                        </option>
+                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
+                        </option>
+                    </select>
+                    <button type="submit" class="btn btn-success ml-2">Ambil</button>
+                    <button type="submit" class="btn btn-primary ml-2">Lihat Kelas</button>
+                </div>
+            </div>
+        </form>
+        <form>
+            <div class="form-group">
+                <label for="matkulUMPB">Mata Kuliah Departemen</label>
+                <div class="input-group">
+                    <select class="form-control" id="matkulUMPB">
+                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
+                        </option>
+                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
+                        </option>
+                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
+                        </option>
+                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
+                        </option>
+                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
+                        </option>
+                    </select>
+                    <button type="submit" class="btn btn-success ml-2">Ambil</button>
+                    <button type="submit" class="btn btn-primary ml-2">Lihat Kelas</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 {% endblock %}

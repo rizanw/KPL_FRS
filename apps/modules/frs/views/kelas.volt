@@ -1,20 +1,19 @@
-{% extends 'layout.volt' %}
+{% extends 'mahasiswa/layout.volt' %}
 
 {% block title %}Daftar Peserta Konstrukti Perangkat Lunak - _{% endblock %}
 
 {% block styles %}
-
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid text-center">
+    <div class="container-fluid text-center mt-5 mb-3 pt-2">
         <h2>Daftar Peserta</h2>
         <h3>Konstrukti Perangkat Lunak - _ </h3>
     </div>
     <div class="container">
-        <table class="table table-bordered">
+        <table class="table table-bordered text-hover w-auto mb-3" style="margin: auto;">
             <thead class="thead-light">
-            <tr>
+            <tr class="text-center">
                 <th >NO</th>
                 <th >NRP</th>
                 <th >Nama</th>
@@ -24,7 +23,7 @@
             <tr>
                 <td> 1</td>
                 <td> 05111540000028</td>
-                <td>Bagus Dharma Iswara</td>
+                <td>BAGUS DHARMA ISWARA</td>
             </tr>
             <tr>
                 <td> 2</td>
