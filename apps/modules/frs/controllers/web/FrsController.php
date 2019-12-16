@@ -4,6 +4,7 @@ namespace Kel5\FRS\Controllers\Web;
 
 use Kel5\FRS\Application\ViewAnakWaliService;
 use Kel5\FRS\Domain\Model\MahasiswaNrp;
+use Kel5\FRS\Application\MenampilkanKelasService;
 use Phalcon\Mvc\Controller;
 use Kel5\FRS\Application\ViewFrsService;
 
@@ -14,8 +15,16 @@ class FrsController extends Controller
         return $this->view->pick('mahasiswa/home');
     }
 
+
     public function frsAction()
     {
+        $service = new MenampilkanKelasService($frsRepository);
+        $responseKelasDept = $service->executeDept();
+        $responseKelasUpmb = $service->executeDept();
+
+        $this->view->setVar('dept', $responseKelasDept->kelas);
+        $this->view->setVar('upmb', $responseKelasUpmb->kelas);
+        //var_dump($responseKelasUpmb->kelas);
         $frsRepository = $this->di->getShared('sql_frs_repository');
         $nrp = "05111640000001";
         $viewFrsService = new ViewFrsService($frsRepository);

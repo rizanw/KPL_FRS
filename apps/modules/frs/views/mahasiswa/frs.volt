@@ -229,16 +229,10 @@
                 <label for="matkulUMPB">Mata Kuliah UPMB</label>
                 <div class="input-group">
                     <select class="form-control" id="matkulUMPB">
-                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
-                        </option>
-                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
-                        </option>
-                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
-                        </option>
-                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
-                        </option>
-                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
-                        </option>
+                        {% for kelas in dept %}
+                       <option>{{kelas['kode_matkul']}} | {{kelas['mata_kuliah']}} | {{kelas['sks']}} |  {{kelas['grup']}}  |  {{kelas['nama_dosen']}}
+                                               </option>
+                        {% endfor %}
                     </select>
                     <button type="submit" class="btn btn-success ml-2">Ambil</button>
                     <button type="submit" class="btn btn-primary ml-2">Lihat Kelas</button>
@@ -250,16 +244,10 @@
                 <label for="matkulUMPB">Mata Kuliah Departemen</label>
                 <div class="input-group">
                     <select class="form-control" id="matkulUMPB">
-                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
+                        {% for kelas in upmb %}
+                        <option>{{kelas['kode_matkul']}} | {{kelas['mata_kuliah']}} | {{kelas['sks']}} |  {{kelas['grup']}}  |  {{kelas['nama_dosen']}}
                         </option>
-                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
-                        </option>
-                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
-                        </option>
-                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
-                        </option>
-                        <option>IF184974 | Konstruksi Perangkat Lunak | 3 | - | Rizky Januar Akbar, S.Kom., M.Eng.
-                        </option>
+                        {% endfor %}
                     </select>
                     <button type="submit" class="btn btn-success ml-2">Ambil</button>
                     <button type="submit" class="btn btn-primary ml-2">Lihat Kelas</button>

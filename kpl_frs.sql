@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Des 2019 pada 19.40
+-- Waktu pembuatan: 03 Des 2019 pada 03.58
 -- Versi server: 10.1.32-MariaDB
 -- Versi PHP: 7.2.5
 
@@ -50,7 +50,9 @@ INSERT INTO `dosen` (`nip`, `nama`) VALUES
 CREATE TABLE `frs` (
   `id_frs` varchar(8) NOT NULL,
   `nrp` char(14) NOT NULL,
-  `is_Setuju` tinyint(1) DEFAULT NULL
+  `is_Setuju` tinyint(1) DEFAULT NULL,
+  `periode` tinyint(1) DEFAULT NULL,
+  `tahun` year(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -108,19 +110,18 @@ CREATE TABLE `mahasiswa` (
   `nrp` char(14) NOT NULL,
   `nama` varchar(31) NOT NULL,
   `IPK` int(11) NOT NULL,
-  `doswal` char(18) DEFAULT NULL,
-  `alamat` varchar(64) DEFAULT NULL
+  `doswal` char(18) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`nrp`, `nama`, `IPK`, `doswal`, `alamat`) VALUES
-('05111640000001', 'Andre', 4, '198410162008121002', NULL),
-('05111640000002', 'Jimi', 4, '198410162008121002', NULL),
-('05111640000003', 'Hazimi', 4, '198410162008121002', NULL),
-('05111640000043', 'Arrafi', 3, '198410162008121002', NULL);
+INSERT INTO `mahasiswa` (`nrp`, `nama`, `IPK`, `doswal`) VALUES
+('05111640000001', 'Andre', 4, '198410162008121002'),
+('05111640000002', 'Jimi', 4, '198410162008121002'),
+('05111640000003', 'Hazimi', 4, '198410162008121002'),
+('05111640000043', 'Arrafi', 3, '198410162008121002');
 
 --
 -- Indexes for dumped tables

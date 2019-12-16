@@ -2,6 +2,9 @@
 
 namespace Kel5\FRS\Infrastructure;
 
+use Kel5\FRS\Domain\Model\Kelas;
+use Phalcon\DiInterface;
+
 use Kel5\FRS\Domain\Model\FRSRepository;
 use Kel5\FRS\Domain\Model\Mahasiswa;
 use Kel5\FRS\Domain\Model\Dosen;
@@ -22,6 +25,10 @@ class SqlFRSRepository implements FRSRepository
     public function getMahasiswaByNrp(MahasiswaNrp $nrp): ?Mahasiswa
     {
         $db = $this->di->getShared('db');
+    public function ambilKelasDept() : array
+    {
+        $db =  $this->di->getShared('db');
+        $sql = "Select * from kelas inner join dosen ON dosen.nip = kelas.dosen where is_upmb = 0";
 
         $sql = "SELECT * FROM mahasiswa WHERE nrp = :nrp";
 
@@ -92,4 +99,64 @@ class SqlFRSRepository implements FRSRepository
         }
         return null;
     }
+        $result = $db->fetchAll($sql, \Phalcon\Db::FETCH_ASSOC);
+        $resultArray= array();
+
+        foreach($result as $row)
+        {
+
+            $kelas = new Kelas(
+                $row['id_kelas'],
+                $row['mata_kuliah'],
+                $row['kode_matkul'],
+                $row['sks'],
+                $row['grup'],
+                $row['kapasitas'],
+                $row['dosen'],
+                $row['ruang'],
+                $row['Waktu_mulai'],
+                $row['waktu_selesai'],
+                $row['periode'],
+                $row['tahun'],
+                $row['nama']
+            );
+            array_push($resultArray, $kelas);
+        }
+
+        return $resultArray;
+    }
+
+    public function ambilKelasUpmb() : array
+    {
+        $db =  $this->di->getShared('db');
+        $sql = "Select * from kelas inner join dosen ON dosen.nip = kelas.dosen where is_upmb = 1";
+
+        $result = $db->fetchAll($sql, \Phalcon\Db::FETCH_ASSOC);
+        $resultArray= array();
+
+        foreach($result as $row)
+        {
+
+            $kelas = new Kelas(
+                $row['id_kelas'],
+                $row['mata_kuliah'],
+                $row['kode_matkul'],
+                $row['sks'],
+                $row['grup'],
+                $row['kapasitas'],
+                $row['dosen'],
+                $row['ruang'],
+                $row['Waktu_mulai'],
+                $row['waktu_selesai'],
+                $row['periode'],
+                $row['tahun'],
+                $row['nama']
+            );
+            array_push($resultArray, $kelas);
+        }
+
+        return $resultArray;
+    }
+
+
 }
