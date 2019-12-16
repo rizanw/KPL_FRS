@@ -2,10 +2,13 @@
 
 namespace Kel5\FRS\Controllers\Web;
 
+use Kel5\FRS\Application\ViewAnakWaliService;
+use Kel5\FRS\Domain\Model\MahasiswaNrp;
 use Phalcon\Mvc\Controller;
+use Kel5\FRS\Application\ViewFrsService;
 
 class FrsController extends Controller
-{
+{ 
     public function indexAction()
     {
         return $this->view->pick('mahasiswa/home');
@@ -13,6 +16,14 @@ class FrsController extends Controller
 
     public function frsAction()
     {
+        $frsRepository = $this->di->getShared('sql_frs_repository');
+        $nrp = "05111640000001";
+        $viewFrsService = new ViewFrsService($frsRepository);
+
+        $viewFrsResponse =  $viewFrsService->execute($nrp);
+
+        $this->view->setVar('mahasiswa', $viewFrsResponse->mahasiswa);
+
         return $this->view->pick('mahasiswa/frs');
     }
 
@@ -31,5 +42,16 @@ class FrsController extends Controller
     public function kelasAction()
     {
         return $this->view->pick('kelas');
+    }
+
+    public function anakWaliAction()
+    {
+        $frsRepository = $this->di->getShared('sql_frs_repository');
+        $nip = "198410162008121002";
+        $viewAnakWaliService = new ViewAnakWaliService($frsRepository);
+        $response = $viewAnakWaliService->execute($nip);
+
+        $this->view->setVar('anakWalis', $response->anakWalis);
+        return $this->view->pick('dosen/daftar_anak_wali');
     }
 }

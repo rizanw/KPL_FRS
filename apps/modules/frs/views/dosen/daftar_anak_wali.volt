@@ -14,12 +14,19 @@
         <table class="table table-bordered">
             <thead class="thead-light">
             <tr>
-                <th >NO</th>
-                <th >NRP</th>
-                <th >Nama</th>
+                <th>NO</th>
+                <th>NRP</th>
+                <th>Nama</th>
             </tr>
             </thead>
             <tbody>
+            {% for anakWali in anakWalis %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ anakWali['nrp'] }}</td>
+                    <td>{{ anakWali['name'] }}</td>
+                </tr>
+            {% endfor %}
             <tr>
                 <td> 1</td>
                 <td> 05111640000043</td>

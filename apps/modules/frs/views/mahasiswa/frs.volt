@@ -67,7 +67,7 @@
             <tr>
                 <td width="100"><strong>NRP</strong></td>
                 <td width="10" align="center"><strong>:</strong></td>
-                <td width="250">{05111740000183}</td>
+                <td width="250">{{ mahasiswa['nrp'] }}</td>
                 <td width="100"><strong>Periode</strong></td>
                 <td width="10" align="center"><strong>:</strong></td>
                 <td width="260"><select name="semesterTerm" id="semesterTerm" class="ControlStyle">
@@ -91,15 +91,15 @@
             <tr>
                 <td><strong>Nama</strong></td>
                 <td align="center"><strong>:</strong></td>
-                <td>{RIZKY ANDRE WIBISONO}</td>
+                <td>{{ mahasiswa['nama'] }}</td>
                 <td><strong>Dosen Wali</strong></td>
                 <td align="center"><strong>:</strong></td>
-                <td>{Tohari Ahmad, S.Kom., MIT., Ph.D.}</td>
+                <td>{{ mahasiswa['doswal'] }}</td>
             </tr>
             <tr>
-                <td><strong>IPK / IPS</strong></td>
+                <td><strong>IPK</strong></td>
                 <td align="center"><strong>:</strong></td>
-                <td> {ipk / ips} </td>
+                <td> {{ mahasiswa['ipk'] }} </td>
                 <td><strong>Batas / Sisa</strong></td>
                 <td align="center"><strong>:</strong></td>
                 <td>{ 24 / 2 SKS }</td>
