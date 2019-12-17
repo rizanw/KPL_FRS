@@ -10,6 +10,14 @@ class FRS
     private $tahun;
     private $isDisetujui;
 
+    public $kelasTerpilih;
+
+
+    public function createListKelas(Kelas $kelas)
+    {
+        array_push($this->kelasTerpilih, $kelas);
+    }
+
     public function __construct($id, $nrp, $periode, $tahun, $isDisetujui)
     {
         $this->id = $id;
@@ -17,6 +25,8 @@ class FRS
         $this->periode = $periode;
         $this->tahun = $tahun;
         $this->isDisetujui = $isDisetujui;
+
+        $this->kelasTerpilih = array();
     }
 
     /**
@@ -57,6 +67,14 @@ class FRS
     public function getPeriode()
     {
         return $this->periode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getKelasTerpilih()
+    {
+        return $this->kelasTerpilih;
     }
 
 

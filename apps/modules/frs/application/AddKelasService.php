@@ -23,11 +23,6 @@ class AddKelasService
             $request->nrp
         );
 
-        $res = $this->frsRepository->addKelasTerpilih($kelasTerpilih);
-
-        if($res){
-            return true;
-        }
-        return false;
+        $this->frsRepository->addKelasTerpilih($kelasTerpilih);
     }
 }

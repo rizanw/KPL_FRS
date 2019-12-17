@@ -193,65 +193,18 @@
                 <th width="60">KELAS</th>
                 <th width="60">KET</th>
             </tr>
-            <tr>
-                <td align="center">1</td>
-                <td align="center">IF184502</td>
-                <td>GRAFIKA KOMPUTER</td>
-                <td align="center">3</td>
-                <td align="center">D</td>
-                <td align="center">&nbsp;</td>
-            </tr>
-            <tr>
-                <td align="center">2</td>
-                <td align="center">IF184505</td>
-                <td>JARINGAN KOMPUTER</td>
-                <td align="center">4</td>
-                <td align="center">_</td>
-                <td align="center">&nbsp;</td>
-            </tr>
-            <tr>
-                <td align="center">3</td>
-                <td align="center">IF184503</td>
-                <td>KECERDASAN KOMPUTASIONAL</td>
-                <td align="center">3</td>
-                <td align="center">D</td>
-                <td align="center">&nbsp;</td>
-            </tr>
-            <tr>
-                <td align="center">4</td>
-                <td align="center">IF184953</td>
-                <td>KOMPUTASI BIOMEDIK</td>
-                <td align="center">3</td>
-                <td align="center">_</td>
-                <td align="center">&nbsp;</td>
-            </tr>
-            <tr>
-                <td align="center">5</td>
-                <td align="center">IF184974</td>
-                <td>KONSTRUKSI PERANGKAT LUNAK</td>
-                <td align="center">3</td>
-                <td align="center">_</td>
-                <td align="center">&nbsp;</td>
-            </tr>
-            <tr>
-                <td align="center">6</td>
-                <td align="center">IF184506</td>
-                <td>MANAJEMEN PROYEK PERANGKAT LUNAK</td>
-                <td align="center">3</td>
-                <td align="center">D</td>
-                <td align="center">&nbsp;</td>
-            </tr>
-            <tr>
-                <td align="center">7</td>
-                <td align="center">IF184501</td>
-                <td>PERANCANGAN PERANGKAT LUNAK</td>
-                <td align="center">3</td>
-                <td align="center">A</td>
-                <td align="center">&nbsp;</td>
-            </tr>
-            <tr>
+            {% for kelas in kelas_terpilih %}
+                <tr>
+                    <td align="center">{{ loop.index }}</td>
+                    <td align="center">{{ kelas['kode_matkul'] | uppercase }}</td>
+                    <td>{{ kelas['mata_kuliah']  | uppercase }}</td>
+                    <td align="center">{{ kelas['sks']  | uppercase }}</td>
+                    <td align="center">{{ kelas['grup']  | uppercase }}</td>
+                    <td align="center">&nbsp;</td>
+                </tr>
+            {% endfor %}
                 <th colspan="3">JUMLAH SKS</th>
-                <th align="center">22</th>
+                <th align="center">{{totalsks}}</th>
                 <th>&nbsp;</th>
                 <th>&nbsp;</th>
             </tr>

@@ -4,7 +4,7 @@ namespace Kel5\FRS\Application;
 
 use Kel5\FRS\Domain\Model\FRSRepository;
 
-class DropKelasFRSService
+class ConfirmFRSService
 {
     public $frsRepository;
 
@@ -13,8 +13,8 @@ class DropKelasFRSService
         $this->frsRepository = $frsRepository;
     }
 
-    public function execute(DropKelasFRSRequest $request)
+    public function execute(ConfirmFRSRequest $request)
     {
-        $this->frsRepository->dropKelas($request->idKelas);
+        $this->frsRepository->confirmFrs($request->idFrs);
     }
 }
