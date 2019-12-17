@@ -1,25 +1,42 @@
 {% extends 'dosen/layout.volt' %}
 
-{% block title %}Daftar Anak Wali{% endblock %}
+{% block title %}Home{% endblock %}
 
-{% block styles %}
+{% block style %}
+<style>
+    /*
+    * Base structure
+    */
 
+    html,
+    body {
+        height: 100%;
+        background-color: #333;
+    }
+
+    body {
+        display: -ms-flexbox;
+        display: flex;
+        color: #fff;
+        text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+        box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+    }
+
+    .masthead-brand {
+        background-color: transparent;
+    }
+</style>
+{% endblock %}
+
+{% block navbar %}
+<a class="nav-link active" href="index">Home</a>
+<a class="nav-link" href="anakwali">Daftar Anak Wali</a>
+<a class="nav-link" href="kelas">Daftar Peserta Kelas</a>
 {% endblock %}
 
 {% block content %}
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">Selamat Datang di Modul FRS!</h1>
-        <hr class="my-4">
-        <h4>Menu : </h4>
-        <p class="lead">
-            <ul style="list-style: none;">
-                <li><a href="#">Daftar Anak Wali</a></li>
-                <li><a href="#">Daftar Anak Wali</a></li>
-            </ul>
-        </p>
-    </div>
-</div>
+<h1 class="cover-heading">Selamat Datang di Modul FRS</h1>
+<p class="lead">Dalam Modul Pembelajaran FRS tersedia fasilitas untuk melihat Daftar Anak Wali, Penyetujuan FRS.</p>
 {% endblock %}
 
 {% block scripts %}

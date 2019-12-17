@@ -94,4 +94,8 @@ class FrsController extends Controller
         }
         return "403";
     }
+
+    public function kelasAction(){
+        return $this->view->pick('dosen/kelas');
+    }
 }
