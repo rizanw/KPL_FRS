@@ -224,33 +224,33 @@
         </tr>
     </table>
     <div class="border p-3 mb-3">
-        <form>
+        <form method="post" action="{{ url('frs/frs/menyusunFRS') }}">
             <div class="form-group">
                 <label for="matkulUMPB">Mata Kuliah UPMB</label>
                 <div class="input-group">
                     <select class="form-control" id="matkulUMPB">
-                        {% for kelas in dept %}
+                        {% for kelas in upmb %}
                        <option>{{kelas['kode_matkul']}} | {{kelas['mata_kuliah']}} | {{kelas['sks']}} |  {{kelas['grup']}}  |  {{kelas['nama_dosen']}}
                                                </option>
                         {% endfor %}
                     </select>
                     <button type="submit" class="btn btn-success ml-2">Ambil</button>
-                    <button type="submit" class="btn btn-primary ml-2">Lihat Kelas</button>
+                    <button type="submit" class="btn btn-primary ml-2" formaction = "{{ url('frs/class/peserta')}}">Lihat Kelas</button>
                 </div>
             </div>
         </form>
-        <form>
+        <form method="post" action="{{ url('frs/frs/menyusunFRS') }}">
             <div class="form-group">
                 <label for="matkulUMPB">Mata Kuliah Departemen</label>
                 <div class="input-group">
-                    <select class="form-control" id="matkulUMPB">
-                        {% for kelas in upmb %}
-                        <option>{{kelas['kode_matkul']}} | {{kelas['mata_kuliah']}} | {{kelas['sks']}} |  {{kelas['grup']}}  |  {{kelas['nama_dosen']}}
+                    <select class="form-control" id="matkulUMPB" name="kelas_dept">
+                        {% for kelas in dept %}
+                        <option value="{{kelas['id_kelas']}}">{{kelas['kode_matkul']}} | {{kelas['mata_kuliah']}} | {{kelas['sks']}} |  {{kelas['grup']}}  |  {{kelas['nama_dosen']}}
                         </option>
                         {% endfor %}
                     </select>
                     <button type="submit" class="btn btn-success ml-2">Ambil</button>
-                    <button type="submit" class="btn btn-primary ml-2">Lihat Kelas</button>
+                    <button type="submit" class="btn btn-primary ml-2" formaction = "{{ url('frs/class/peserta')}}">Lihat Kelas</button>
                 </div>
             </div>
         </form>

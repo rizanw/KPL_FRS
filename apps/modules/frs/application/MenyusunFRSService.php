@@ -15,5 +15,9 @@ class MenyusunFRSService
     {
         $this->frsRepository = $frsRepository;
     }
+    public function execute(MenyusunFRSRequest $request)
+    {
+
+    }
 
 }
