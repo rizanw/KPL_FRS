@@ -54,11 +54,6 @@ class FrsController extends Controller
         return $this->view->pick('mahasiswa/cetak');
     }
 
-    public function kelasAction()
-    {
-        return $this->view->pick('kelas');
-    }
-
     public function anakWaliAction()
     {
         $frsRepository = $this->di->getShared('sql_frs_repository');
