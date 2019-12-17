@@ -2,6 +2,8 @@
 
 namespace Kel5\FRS\Application;
 
+use Kel5\FRS\Domain\Model\Dosen;
+
 class ViewFrsResponse
 {
     public $frs;
@@ -13,24 +15,28 @@ class ViewFrsResponse
         $this->mahasiswa = array();
     }
 
-    public function addFrsResponse(
-
-    )
+    public function addFrsResponse($id, $nrp, $periode, $tahun, $isDisetujui)
     {
-        $frs = array(
-
+        $this->frs = array(
+            'id' => $id,
+            'nrp' => $nrp,
+            'periode' => $periode,
+            'tahun' => $tahun,
+            'is_disetujui' => $isDisetujui
         );
 
-        array_push($this->frs, $frs);
+        return $this->frs;
     }
 
-    public function addMahasiswaFrsResponse($nrp, $nama, $ipk, $doswal)
+    public function addMahasiswaFrsResponse($nrp, $nama, $ipk, Dosen $doswal, $alamat)
     {
         $this->mahasiswa = array(
             'nrp' => $nrp,
             'nama' => $nama,
             'ipk' => $ipk,
-            'doswal' => $doswal
+            'doswalnama' => $doswal->getNama(),
+            'doswalnip' => $doswal->getNip(),
+            'alamat' => $alamat
         );
 
         return $this->mahasiswa;

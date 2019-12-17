@@ -1,4 +1,4 @@
-{% extends 'mahasiswa/layout.volt' %}
+{% extends 'dosen/layout.volt' %}
 
 {% block title %}Daftar Peserta Konstrukti Perangkat Lunak - _{% endblock %}
 

@@ -3,7 +3,7 @@
 namespace Kel5\FRS\Controllers\Web;
 
 use Kel5\FRS\Application\ViewAnakWaliService;
-use Kel5\FRS\Domain\Model\MahasiswaNrp;
+
 use Kel5\FRS\Application\MenampilkanKelasService;
 use Phalcon\Mvc\Controller;
 use Kel5\FRS\Application\ViewFrsService;
@@ -19,7 +19,7 @@ class FrsController extends Controller
     {
         $this->frsRepository = $this->di->getShared('sql_frs_repository');
 
-        $this->isDosen = True;
+        $this->isDosen = False;
         if ($this->isDosen){
             $this->nip = "198410162008121002";
         }else{
@@ -37,28 +37,35 @@ class FrsController extends Controller
     }
 
 
-    public function frsAction()
+    public function frsAction($anakWaliNrp = null)
     {
+
+        $service = new MenampilkanKelasService($this->frsRepository);
+        $responseKelasDept = $service->executeDept();
+        $responseKelasUpmb = $service->executeUpmb();
+
         if($this->isDosen){
+            if(!$anakWaliNrp)
+                return "Mahasiswa tidak ditemukan";
+
+            $viewFrsService = new ViewFrsService($this->frsRepository);
+            $viewFrsResponse =  $viewFrsService->execute($anakWaliNrp);
+
+            $this->view->setVar('dept', $responseKelasDept->kelas);
+            $this->view->setVar('upmb', $responseKelasUpmb->kelas);
+            $this->view->setVar('frs', $viewFrsResponse->frs);
+            $this->view->setVar('mahasiswa', $viewFrsResponse->mahasiswa);
             return $this->view->pick('dosen/frs');
         }else {
-            $service = new MenampilkanKelasService($this->frsRepository);
-            $responseKelasDept = $service->executeDept();
-            $responseKelasUpmb = $service->executeUpmb();
-
             $viewFrsService = new ViewFrsService($this->frsRepository);
             $viewFrsResponse =  $viewFrsService->execute($this->nrp);
 
             $this->view->setVar('dept', $responseKelasDept->kelas);
             $this->view->setVar('upmb', $responseKelasUpmb->kelas);
+            $this->view->setVar('frs', $viewFrsResponse->frs);
             $this->view->setVar('mahasiswa', $viewFrsResponse->mahasiswa);
             return $this->view->pick('mahasiswa/frs');
         }
-    }
-
-    public function menyusunFRS()
-    {
-
     }
 
     public function dropkelasAction()
@@ -69,7 +76,10 @@ class FrsController extends Controller
 
     public function cetakAction()
     {
-        # code...
+        $viewFrsService = new ViewFrsService($this->frsRepository);
+        $viewFrsResponse =  $viewFrsService->execute($this->nrp);
+        $this->view->setVar('frs', $viewFrsResponse->frs);
+        $this->view->setVar('mahasiswa', $viewFrsResponse->mahasiswa);
         return $this->view->pick('mahasiswa/cetak');
     }
 

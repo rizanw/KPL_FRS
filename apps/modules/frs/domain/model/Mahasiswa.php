@@ -50,7 +50,7 @@ class Mahasiswa
         return $this->alamat;
     }
 
-    public function __construct(MahasiswaNrp $nrp, $nama, $ipk, Dosen $doswal, $alamat)
+    public function __construct($nrp, $nama, $ipk, Dosen $doswal, $alamat)
     {
         $this->nrp = $nrp;
         $this->nama = $nama;

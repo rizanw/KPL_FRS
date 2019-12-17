@@ -138,15 +138,22 @@
                                     </tr>
                                     <tr>
                                         <th>SEMESTER</th>
-                                        <td>Gasal 2019</td>
+                                        <td>
+                                            {% if frs['periode'] is sameas('0') %}
+                                                Genap
+                                            {% else %}
+                                                Gasal
+                                            {% endif %}
+                                            {{ frs['tahun'] }}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>DOSEN WALI</th>
-                                        <td>Tohari Ahmad, S.Kom., MIT., Ph.D.</td>
+                                        <td>{{ mahasiswa['doswalnama'] | uppercase }}</td>
                                     </tr>
                                     <tr>
                                         <th>&nbsp;</th>
-                                        <td>NIP. 197505252003121002</td>
+                                        <td>NIP. {{ mahasiswa['doswalnip'] | uppercase }}</td>
                                     </tr>
                                 </table>
                             </td>
@@ -155,19 +162,15 @@
                                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bio">
                                     <tr>
                                         <th width="60">NRP</th>
-                                        <td>05111740000183</td>
+                                        <td>{{ mahasiswa['nrp'] }}</td>
                                     </tr>
                                     <tr>
                                         <th>NAMA</th>
-                                        <td>RIZKY ANDRE WIBISONO</td>
+                                        <td>{{ mahasiswa['nama'] | uppercase }}</td>
                                     </tr>
                                     <tr>
                                         <th>ALAMAT</th>
-                                        <td>JALAN HALMAHERA VII A/01 RT 02 / RW 03, KEC. JOMBANG</td>
-                                    </tr>
-                                    <tr>
-                                        <th>&nbsp;</th>
-                                        <td>Kab. Jombang, Jawa Timur</td>
+                                        <td>{{ mahasiswa['alamat'] | uppercase }}</td>
                                     </tr>
                                 </table>
                             </td>
@@ -274,7 +277,7 @@
                 <td>&nbsp;</td>
                 <td class="ttd" width="200">
                     <p>Surabaya,
-                        6 Desember 2019<br>
+                        17 Desember 2019<br>
                         Kepala BAPKM,
                         <br>
                         <br>

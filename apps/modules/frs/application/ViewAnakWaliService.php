@@ -22,7 +22,7 @@ class ViewAnakWaliService
         if ($anakWalis) {
             foreach ($anakWalis as $r) {
                 $response->addAnakWaliResponse(
-                    $r->getNrp()->getNrp(),
+                    $r->getNrp(),
                     $r->getNama(),
                     $r->getIpk(),
                     $r->getDoswal()->getNip(),

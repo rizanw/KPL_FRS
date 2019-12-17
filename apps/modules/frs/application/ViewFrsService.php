@@ -17,27 +17,30 @@ class ViewFrsService
 
     public function execute($mahasiswaNrp)
     {
-//        $frs = $this->frsRepository->all();
-        $mahasiswa = $this->frsRepository->getMahasiswaByNrp(new MahasiswaNrp($mahasiswaNrp));
+        $frs = $this->frsRepository->getFrsByNrp($mahasiswaNrp, "0", "2019");
+        $mahasiswa = $this->frsRepository->getMahasiswaByNrp($mahasiswaNrp);
 
         $response = new ViewFrsResponse();
 
-//        if($frs) {
-//            foreach ($frs as $r) {
-//                $response->addFrsResponse(
-//
-//                );
-//            }
-//        }
+        if ($frs) {
+            $response->addFrsResponse(
+                $frs->getId(),
+                $frs->getNrp(),
+                $frs->getPeriode(),
+                $frs->getTahun(),
+                $frs->getIsDisetujui()
+            );
+        }
 
-
-        $response->addMahasiswaFrsResponse(
-            $mahasiswa->getNrp()->getNrp(),
-            $mahasiswa->getNama(),
-            $mahasiswa->getIpk(),
-            $mahasiswa->getDoswal()->getNama()
-        );
-
+        if ($mahasiswa) {
+            $response->addMahasiswaFrsResponse(
+                $mahasiswa->getNrp(),
+                $mahasiswa->getNama(),
+                $mahasiswa->getIpk(),
+                $mahasiswa->getDoswal(),
+                $mahasiswa->getAlamat()
+            );
+        }
         return $response;
     }
 }
