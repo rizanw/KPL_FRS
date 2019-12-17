@@ -61,7 +61,7 @@ class SqlFRSRepository implements FRSRepository
     {
         $db = $this->di->getShared('db');
         $sql = "SELECT * FROM mahasiswa WHERE doswal = :nip";
-        $res = $db->fetchOne($sql, \Phalcon\Db::FETCH_ASSOC, [
+        $res = $db->fetchAll($sql, \Phalcon\Db::FETCH_ASSOC, [
             'nip' => $nip
         ]);
 

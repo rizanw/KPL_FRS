@@ -9,32 +9,51 @@ use Phalcon\Mvc\Controller;
 use Kel5\FRS\Application\ViewFrsService;
 
 class FrsController extends Controller
-{ 
+{
+    private $nrp;
+    private $nip;
+    private $isDosen;
+    private $frsRepository;
+
+    public function onConstruct()
+    {
+        $this->frsRepository = $this->di->getShared('sql_frs_repository');
+
+        $this->isDosen = True;
+        if ($this->isDosen){
+            $this->nip = "198410162008121002";
+        }else{
+            $this->nrp = "05111740000183";
+        }
+    }
+
     public function indexAction()
     {
-        return $this->view->pick('mahasiswa/home');
+        if($this->isDosen){
+            return $this->view->pick('dosen/home');
+        }else {
+            return $this->view->pick('mahasiswa/home');
+        }
     }
 
 
     public function frsAction()
     {
-        $frsRepository = $this->di->getShared('sql_frs_repository');
-        $service = new MenampilkanKelasService($frsRepository);
-        $responseKelasDept = $service->executeDept();
-        $responseKelasUpmb = $service->executeUpmb();
+        if($this->isDosen){
+            return $this->view->pick('dosen/frs');
+        }else {
+            $service = new MenampilkanKelasService($this->frsRepository);
+            $responseKelasDept = $service->executeDept();
+            $responseKelasUpmb = $service->executeUpmb();
 
-        $this->view->setVar('dept', $responseKelasDept->kelas);
-        $this->view->setVar('upmb', $responseKelasUpmb->kelas);
-        //var_dump($responseKelasUpmb->kelas);
-        $frsRepository = $this->di->getShared('sql_frs_repository');
-        $nrp = "05111640000001";
-        $viewFrsService = new ViewFrsService($frsRepository);
+            $viewFrsService = new ViewFrsService($this->frsRepository);
+            $viewFrsResponse =  $viewFrsService->execute($this->nrp);
 
-        $viewFrsResponse =  $viewFrsService->execute($nrp);
-
-        $this->view->setVar('mahasiswa', $viewFrsResponse->mahasiswa);
-
-        return $this->view->pick('mahasiswa/frs');
+            $this->view->setVar('dept', $responseKelasDept->kelas);
+            $this->view->setVar('upmb', $responseKelasUpmb->kelas);
+            $this->view->setVar('mahasiswa', $viewFrsResponse->mahasiswa);
+            return $this->view->pick('mahasiswa/frs');
+        }
     }
 
     public function menyusunFRS()
@@ -56,12 +75,13 @@ class FrsController extends Controller
 
     public function anakWaliAction()
     {
-        $frsRepository = $this->di->getShared('sql_frs_repository');
-        $nip = "198410162008121002";
-        $viewAnakWaliService = new ViewAnakWaliService($frsRepository);
-        $response = $viewAnakWaliService->execute($nip);
+        if ($this->isDosen){
+            $viewAnakWaliService = new ViewAnakWaliService($this->frsRepository);
+            $response = $viewAnakWaliService->execute($this->nip);
 
-        $this->view->setVar('anakWalis', $response->anakWalis);
-        return $this->view->pick('dosen/daftar_anak_wali');
+            $this->view->setVar('anakWalis', $response->anakWalis);
+            return $this->view->pick('dosen/daftar_anak_wali');
+        }
+        return "403";
     }
 }
