@@ -21,7 +21,7 @@ class FrsController extends Controller
         $frsRepository = $this->di->getShared('sql_frs_repository');
         $service = new MenampilkanKelasService($frsRepository);
         $responseKelasDept = $service->executeDept();
-        $responseKelasUpmb = $service->executeDept();
+        $responseKelasUpmb = $service->executeUpmb();
 
         $this->view->setVar('dept', $responseKelasDept->kelas);
         $this->view->setVar('upmb', $responseKelasUpmb->kelas);
