@@ -3,9 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
-
--- Generation Time: Dec 17, 2019 at 06:40 AM
-
+-- Generation Time: Dec 17, 2019 at 10:16 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -62,8 +60,11 @@ CREATE TABLE `frs` (
 --
 
 INSERT INTO `frs` (`id_frs`, `nrp`, `is_setuju`, `periode`, `tahun`) VALUES
+('321ac695-acca-4bf0-bde1-04dc4815f49c', '}0511174000018', 0, 0, 2019),
+('45c9b5b0-5475-462e-b3f2-ee06af1bdab7', 'kelas', 0, 0, 2019),
 ('62f67f67', '05111740000183', 0, 1, 2019),
-('963f154c-9626-4d1c-99a3-581c79624f44', '05111740000183', 0, 0, 2019);
+('963f154c-9626-4d1c-99a3-581c79624f44', '05111740000183', 0, 0, 2019),
+('a3b83e15-641b-484c-adca-3e69a2e99a33', 'frs', 0, 0, 2019);
 
 -- --------------------------------------------------------
 
@@ -106,11 +107,18 @@ INSERT INTO `kelas` (`id_kelas`, `mata_kuliah`, `kode_matkul`, `sks`, `grup`, `k
 
 CREATE TABLE `kelasterpilih` (
   `id` varchar(8) NOT NULL,
-  `id_frs` varchar(8) DEFAULT NULL,
+  `id_frs` varchar(255) DEFAULT NULL,
   `id_kelas` varchar(8) DEFAULT NULL,
-  `nrp` int(14) NOT NULL
-
+  `nrp` varchar(14) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `kelasterpilih`
+--
+
+INSERT INTO `kelasterpilih` (`id`, `id_frs`, `id_kelas`, `nrp`) VALUES
+('5b883a7d', '963f154c-9626-4d1c-99a3-581c79624f44', 'UP190002', '05111740000183'),
+('bcaed5b6', '963f154c-9626-4d1c-99a3-581c79624f44', 'KIF19002', '05111740000183');
 
 -- --------------------------------------------------------
 

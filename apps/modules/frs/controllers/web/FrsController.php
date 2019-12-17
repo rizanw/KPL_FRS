@@ -18,8 +18,8 @@ use Kel5\FRS\Application\ViewFrsService;
 
 class FrsController extends Controller
 {
-    private $nrp =  "05111740000183";
-    private $nip = "198410162008121002";
+    private $nrp = "198410162008121002";
+    private $nip = "05111740000183";
     private $isDosen;
     private $frsRepository;
     public function onConstruct()
@@ -53,8 +53,6 @@ class FrsController extends Controller
         }
 
     }
-
-
 
     public function frsAction($anakWaliNrp = null)
     {
