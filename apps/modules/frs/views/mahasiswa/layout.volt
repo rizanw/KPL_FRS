@@ -7,15 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{% block title %}{% endblock %} - Formulir Rencana Studi (FRS)</title>
     <link rel="stylesheet" href="{{ url('assets/css/bootstrap.min.css') }}">
-    <!-- <style>
-    body{
-        font-size: 0.8rem;
-    }
-    </style> -->
+
     <style>
-        /*
- * Globals
- */
 
         /* Links */
         a,
@@ -25,21 +18,17 @@
         }
 
         /*
- * Base structure
- */
+        * Base structure
+        */
 
         html,
         body {
             height: 100%;
-            /* background-color: #333; */
         }
 
         body {
             display: -ms-flexbox;
             display: flex;
-            /* color: #fff; */
-            /* text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5); */
-            /* box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5); */
         }
 
         .cover-container {
@@ -48,8 +37,8 @@
 
 
         /*
- * Header
- */
+        * Header
+        */
         .masthead {
             margin-bottom: 2rem;
         }
@@ -92,8 +81,8 @@
 
 
         /*
- * Cover
- */
+        * Cover
+        */
         .cover {
             padding: 0 1.5rem;
         }
@@ -105,8 +94,8 @@
 
 
         /*
- * Footer
- */
+        * Footer
+        */
         .mastfoot {
             color: rgba(255, 255, 255, .5);
         }
@@ -115,7 +104,7 @@
 </head>
 
 <body class="text-center">
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-colgiumn">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="masthead mb-auto">
             <div class="inner">
                 <h3 class="masthead-brand">FRS</h3>
@@ -141,6 +130,9 @@
     <script src="{{ url('assets/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ url('assets/js/popper.min.js') }}"></script>
     <script src="{{ url('assets/js/bootstrap.min.js') }}"></script>
+
+    {% block script %}
+    {% endblock %}
 </body>
 
 </html>

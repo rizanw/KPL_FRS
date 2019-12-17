@@ -7,31 +7,124 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{% block title %}{% endblock %} - Formulir Rencana Studi (FRS)</title>
     <link rel="stylesheet" href="{{ url('assets/css/bootstrap.min.css') }}">
+
     <style>
-    body{
-        font-size: 0.8rem;
-    }
+
+        /* Links */
+        a,
+        a:focus,
+        a:hover {
+            color: #fff;
+        }
+
+        /*
+        * Base structure
+        */
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: -ms-flexbox;
+            display: flex;
+        }
+
+        .cover-container {
+            max-width: 60em;
+        }
+
+
+        /*
+        * Header
+        */
+        .masthead {
+            margin-bottom: 2rem;
+        }
+
+        .masthead-brand {
+            margin-bottom: 0;
+        }
+
+        .nav-masthead .nav-link {
+            padding: .25rem 0;
+            font-weight: 700;
+            color: rgba(255, 255, 255, .5);
+            background-color: transparent;
+            border-bottom: .25rem solid transparent;
+        }
+
+        .nav-masthead .nav-link:hover,
+        .nav-masthead .nav-link:focus {
+            border-bottom-color: rgba(255, 255, 255, .25);
+        }
+
+        .nav-masthead .nav-link+.nav-link {
+            margin-left: 1rem;
+        }
+
+        .nav-masthead .active {
+            color: #fff;
+            border-bottom-color: #fff;
+        }
+
+        @media (min-width: 48em) {
+            .masthead-brand {
+                float: left;
+            }
+
+            .nav-masthead {
+                float: right;
+            }
+        }
+
+
+        /*
+        * Cover
+        */
+        .cover {
+            padding: 0 1.5rem;
+        }
+
+        .cover .btn-lg {
+            padding: .75rem 1.25rem;
+            font-weight: 700;
+        }
+
+
+        /*
+        * Footer
+        */
+        .mastfoot {
+            color: rgba(255, 255, 255, .5);
+        }
     </style>
     {% block style %}{% endblock %}
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">FRS</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link" href="#">Home</a>
-                <a class="nav-item nav-link" href="#">Daftar Anak Wali</a>
+<body class="text-center">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <h3 class="masthead-brand">FRS</h3>
+                <nav class="nav nav-masthead justify-content-center">
+                    {% block navbar %}
+                    {% endblock %}
+                </nav>
             </div>
-        </div>
-    </nav>
-    <div class="container">
-        {% block content %}
-        {% endblock %}
+        </header>
+
+        <main role="main" class="inner cover">
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p>Design copied from <a href="integra.its.ac.id">Integra ITS</a>.</p>
+            </div>
+        </footer>
     </div>
 
     <script src="{{ url('assets/js/jquery-3.4.1.min.js') }}"></script>

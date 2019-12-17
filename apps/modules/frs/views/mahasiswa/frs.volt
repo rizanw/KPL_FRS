@@ -1,6 +1,6 @@
 {% extends 'mahasiswa/layout.volt' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}FRS{% endblock %}
 
 {% block style %}
 <style>
@@ -235,7 +235,7 @@
                         {% endfor %}
                     </select>
                     <button type="submit" class="btn btn-success ml-2">Ambil</button>
-                    <button type="submit" class="btn btn-primary ml-2" formaction = "{{ url('frs/class/peserta')}}">Lihat Kelas</button>
+                    <!-- <button type="submit" class="btn btn-primary ml-2" formaction = "{{ url('frs/class/peserta')}}">Lihat Kelas</button> -->
                 </div>
             </div>
         </form>
@@ -250,7 +250,7 @@
                         {% endfor %}
                     </select>
                     <button type="submit" class="btn btn-success ml-2">Ambil</button>
-                    <button type="submit" class="btn btn-primary ml-2" formaction = "{{ url('frs/class/peserta')}}">Lihat Kelas</button>
+                    <!-- <button type="submit" class="btn btn-primary ml-2" formaction = "{{ url('frs/class/peserta')}}">Lihat Kelas</button> -->
                 </div>
             </div>
         </form>
