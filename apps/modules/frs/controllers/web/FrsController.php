@@ -20,25 +20,30 @@ class FrsController extends Controller
     public function onConstruct()
     {
         $this->frsRepository = $this->di->getShared('sql_frs_repository');
+
+        if ($this->isDosen){
+            $this->nip = "198410162008121002";
+        }else{
+            $this->nrp = "05111740000183";
+        }
     }
 
     public function indexAction()
     {
-
-
         return $this->view->pick('login');
     }
+
     public function loginAction()
     {
-            if ($_POST['usid'] == 'dosen') {
-                $this->nip = "198410162008121002";
-                $this->isDosen = true;
-                return $this->view->pick('dosen/home');
-            } else {
-                $this->nrp = "05111740000183";
-                $this->isDosen = false;
-                return $this->view->pick('mahasiswa/home');
-            }
+        if ($_POST['usid'] == 'dosen') {
+            $this->nip = "198410162008121002";
+            $this->isDosen = true;
+            return $this->view->pick('dosen/home');
+        } else {
+            $this->nrp = "05111740000183";
+            $this->isDosen = false;
+            return $this->view->pick('mahasiswa/home');
+        }
 
     }
 
