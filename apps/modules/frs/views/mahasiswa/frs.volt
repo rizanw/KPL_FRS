@@ -94,7 +94,7 @@
                 <td>{{ mahasiswa['nama'] }}</td>
                 <td><strong>Dosen Wali</strong></td>
                 <td align="center"><strong>:</strong></td>
-                <td>{{ mahasiswa['doswal'] }}</td>
+                <td>{{ mahasiswa['doswalnama'] }}</td>
             </tr>
             <tr>
                 <td><strong>IPK</strong></td>
@@ -104,21 +104,6 @@
                 <td align="center"><strong>:</strong></td>
                 <td>{ 24 / 2 SKS }</td>
             </tr>
-            <!-- <tr>
-                <td><strong>Tautan</strong></td>
-                <td align="center"><strong>:</strong></td>
-                <td colspan="4">
-                    <font size="1"><a href="lv_mkulang.php?nrp=5117100183"
-                            onClick="popUp(this.href,'elastic',600,600);return false;" target="_blank">MK Harus
-                            Diulang</a> | <a href="lv_mkambil.php?nrp=5117100183"
-                            onClick="popUp(this.href,'elastic',600,600);return false;" target="_blank">MK Wajib diambil
-                            (pd saat ganti Kurikulum)</a> | <a href="lv_mkprasyarat.php?nrp=5117100183&mkThn=2019&mkSem=1"
-                            onClick="popUp(this.href,'elastic',600,600);return false;" target="_blank">Pengambilan
-                            melanggar prasyarat</a> | <a href="ekivalensi_rekapitulasi_mhs.php?edit=5117100183"
-                            onClick="popUp(this.href,'elastic',600,1000);return false;" target="_blank">Ekivalensi</a>
-                    </font>
-                </td>
-            </tr> -->
         </table>
     </div>
 
@@ -216,6 +201,7 @@
             <td>mahasiswa mengambil mata kuliah semester atas</td>
         </tr>
     </table>
+    {% if frs['is_disetujui'] is sameas("1") %}
     <table class="table mb-5">
         <tr height="30" bgcolor="#C6EFFF">
             <td align="center" colspan="6" style="border:1px solid #0000FF">
@@ -223,15 +209,19 @@
             </td>
         </tr>
     </table>
-    <div class="border p-3 mb-3">
-        <form method="post" action="{{ url('frs/frs/menyusunFRS') }}">
+    {% else %}
+    <div class="border mt-5 p-3 mb-3">
+        <form method="post" action="{{ url('frs/frs/frs') }}">
             <div class="form-group">
                 <label for="matkulUMPB">Mata Kuliah UPMB</label>
                 <div class="input-group">
-                    <select class="form-control" id="matkulUMPB">
+                    <div>
+                        <input type="hidden" name="nrp" value="{{ mahasiswa['nrp'] }}">
+                        <input type="hidden" name="id_frs" value="{{ frs['id'] }}">
+                    </div>
+                    <select class="form-control" id="matkulUMPB" name="id_kelas">
                         {% for kelas in upmb %}
-                       <option>{{kelas['kode_matkul']}} | {{kelas['mata_kuliah']}} | {{kelas['sks']}} |  {{kelas['grup']}}  |  {{kelas['nama_dosen']}}
-                                               </option>
+                       <option value="{{kelas['id_kelas']}}">{{kelas['kode_matkul']}} | {{kelas['mata_kuliah']}} | {{kelas['sks']}} |  {{kelas['grup']}}  |  {{kelas['nama_dosen']}} </option>
                         {% endfor %}
                     </select>
                     <button type="submit" class="btn btn-success ml-2">Ambil</button>
@@ -255,6 +245,7 @@
             </div>
         </form>
     </div>
+    {% endif %}
 </div>
 
 {% endblock %}

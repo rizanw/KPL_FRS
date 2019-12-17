@@ -39,6 +39,12 @@ class FrsController extends Controller
 
     public function frsAction($anakWaliNrp = null)
     {
+        if($this->request->isPost()) {
+            $idKelas = $this->request->getPost('id_kelas');
+            $idFrs = $this->request->getPost('id_frs');
+            $Nrp = $this->request->getPost('nrp');
+
+        }
 
         $service = new MenampilkanKelasService($this->frsRepository);
         $responseKelasDept = $service->executeDept();
