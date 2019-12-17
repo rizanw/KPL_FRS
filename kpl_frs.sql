@@ -3,7 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+
 -- Generation Time: Dec 17, 2019 at 06:40 AM
+
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -106,7 +108,8 @@ CREATE TABLE `kelasterpilih` (
   `id` varchar(8) NOT NULL,
   `id_frs` varchar(8) DEFAULT NULL,
   `id_kelas` varchar(8) DEFAULT NULL,
-  `nrp` varchar(14) NOT NULL
+  `nrp` int(14) NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

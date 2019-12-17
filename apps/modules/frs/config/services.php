@@ -55,3 +55,9 @@ $di->setShared('sql_frs_repository', function() use ($di) {
 
     return $repo;
 });
+
+$di->setShared('session', function() {
+    $session = new Phalcon\Session\Adapter\Files();
+    $session->start();
+    return $session;
+});

@@ -2,6 +2,7 @@
 
 namespace Kel5\FRS\Controllers\Web;
 
+
 use Kel5\FRS\Application\AddKelasRequest;
 use Kel5\FRS\Application\AddKelasService;
 use Kel5\FRS\Application\ConfirmFRSRequest;
@@ -9,7 +10,6 @@ use Kel5\FRS\Application\ConfirmFRSService;
 use Kel5\FRS\Application\DropKelasFRSRequest;
 use Kel5\FRS\Application\DropKelasFRSService;
 use Kel5\FRS\Application\ViewAnakWaliService;
-
 use Kel5\FRS\Application\MenampilkanKelasService;
 use Phalcon\Mvc\Controller;
 use Kel5\FRS\Application\ViewFrsService;
@@ -35,12 +35,23 @@ class FrsController extends Controller
 
     public function indexAction()
     {
-        if ($this->isDosen) {
+        return $this->view->pick('login');
+    }
+
+    public function loginAction()
+    {
+        if ($_POST['usid'] == 'dosen') {
+            $this->nip = "198410162008121002";
+            $this->isDosen = true;
             return $this->view->pick('dosen/home');
         } else {
+            $this->nrp = "05111740000183";
+            $this->isDosen = false;
             return $this->view->pick('mahasiswa/home');
         }
+
     }
+
 
 
     public function frsAction($anakWaliNrp = null)
@@ -160,8 +171,7 @@ class FrsController extends Controller
         return "403";
     }
 
-    public function kelasAction()
-    {
+    public function lihatPesertaAction(){
         return $this->view->pick('dosen/kelas');
     }
 }
