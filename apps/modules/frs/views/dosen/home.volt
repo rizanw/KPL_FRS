@@ -1,44 +1,42 @@
 {% extends 'dosen/layout.volt' %}
 
-{% block title %}Daftar Anak Wali{% endblock %}
+{% block title %}Home{% endblock %}
 
-{% block styles %}
+{% block style %}
+<style>
+    /*
+    * Base structure
+    */
 
+    html,
+    body {
+        height: 100%;
+        background-color: #333;
+    }
+
+    body {
+        display: -ms-flexbox;
+        display: flex;
+        color: #fff;
+        text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+        box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+    }
+
+    .masthead-brand {
+        background-color: transparent;
+    }
+</style>
+{% endblock %}
+
+{% block navbar %}
+<a class="nav-link active" href="index">Home</a>
+<a class="nav-link" href="anakwali">Daftar Anak Wali</a>
+<a class="nav-link" href="kelas">Daftar Peserta Kelas</a>
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid text-center">
-        <h2>Daftar Anak Wali</h2>
-    </div>
-    <div class="container">
-        <table class="table table-bordered">
-            <thead class="thead-light">
-            <tr>
-                <th >NO</th>
-                <th >NRP</th>
-                <th >Nama</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td> 1</td>
-                <td> 05111640000043</td>
-                <td>MUHAMMAD ARRAFI</td>
-            </tr>
-            <tr>
-                <td> 2</td>
-                <td> 05111740000082</td>
-                <td>INDIRA NURSYAMSINA HAZIMI</td>
-            </tr>
-            <tr>
-                <td> 3</td>
-                <td> 05111740000183</td>
-                <td>RIZKY ANDRE WIBISONO</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
+<h1 class="cover-heading">Selamat Datang di Modul FRS</h1>
+<p class="lead">Dalam Modul Pembelajaran FRS tersedia fasilitas untuk melihat Daftar Anak Wali, Penyetujuan FRS.</p>
 {% endblock %}
 
 {% block scripts %}

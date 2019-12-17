@@ -138,15 +138,22 @@
                                     </tr>
                                     <tr>
                                         <th>SEMESTER</th>
-                                        <td>Gasal 2019</td>
+                                        <td>
+                                            {% if frs['periode'] is sameas('0') %}
+                                                Genap
+                                            {% else %}
+                                                Gasal
+                                            {% endif %}
+                                            {{ frs['tahun'] }}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>DOSEN WALI</th>
-                                        <td>Tohari Ahmad, S.Kom., MIT., Ph.D.</td>
+                                        <td>{{ mahasiswa['doswalnama'] | uppercase }}</td>
                                     </tr>
                                     <tr>
                                         <th>&nbsp;</th>
-                                        <td>NIP. 197505252003121002</td>
+                                        <td>NIP. {{ mahasiswa['doswalnip'] | uppercase }}</td>
                                     </tr>
                                 </table>
                             </td>
@@ -155,19 +162,15 @@
                                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bio">
                                     <tr>
                                         <th width="60">NRP</th>
-                                        <td>05111740000183</td>
+                                        <td>{{ mahasiswa['nrp'] }}</td>
                                     </tr>
                                     <tr>
                                         <th>NAMA</th>
-                                        <td>RIZKY ANDRE WIBISONO</td>
+                                        <td>{{ mahasiswa['nama'] | uppercase }}</td>
                                     </tr>
                                     <tr>
                                         <th>ALAMAT</th>
-                                        <td>JALAN HALMAHERA VII A/01 RT 02 / RW 03, KEC. JOMBANG</td>
-                                    </tr>
-                                    <tr>
-                                        <th>&nbsp;</th>
-                                        <td>Kab. Jombang, Jawa Timur</td>
+                                        <td>{{ mahasiswa['alamat'] | uppercase }}</td>
                                     </tr>
                                 </table>
                             </td>
@@ -190,65 +193,18 @@
                 <th width="60">KELAS</th>
                 <th width="60">KET</th>
             </tr>
-            <tr>
-                <td align="center">1</td>
-                <td align="center">IF184502</td>
-                <td>GRAFIKA KOMPUTER</td>
-                <td align="center">3</td>
-                <td align="center">D</td>
-                <td align="center">&nbsp;</td>
-            </tr>
-            <tr>
-                <td align="center">2</td>
-                <td align="center">IF184505</td>
-                <td>JARINGAN KOMPUTER</td>
-                <td align="center">4</td>
-                <td align="center">_</td>
-                <td align="center">&nbsp;</td>
-            </tr>
-            <tr>
-                <td align="center">3</td>
-                <td align="center">IF184503</td>
-                <td>KECERDASAN KOMPUTASIONAL</td>
-                <td align="center">3</td>
-                <td align="center">D</td>
-                <td align="center">&nbsp;</td>
-            </tr>
-            <tr>
-                <td align="center">4</td>
-                <td align="center">IF184953</td>
-                <td>KOMPUTASI BIOMEDIK</td>
-                <td align="center">3</td>
-                <td align="center">_</td>
-                <td align="center">&nbsp;</td>
-            </tr>
-            <tr>
-                <td align="center">5</td>
-                <td align="center">IF184974</td>
-                <td>KONSTRUKSI PERANGKAT LUNAK</td>
-                <td align="center">3</td>
-                <td align="center">_</td>
-                <td align="center">&nbsp;</td>
-            </tr>
-            <tr>
-                <td align="center">6</td>
-                <td align="center">IF184506</td>
-                <td>MANAJEMEN PROYEK PERANGKAT LUNAK</td>
-                <td align="center">3</td>
-                <td align="center">D</td>
-                <td align="center">&nbsp;</td>
-            </tr>
-            <tr>
-                <td align="center">7</td>
-                <td align="center">IF184501</td>
-                <td>PERANCANGAN PERANGKAT LUNAK</td>
-                <td align="center">3</td>
-                <td align="center">A</td>
-                <td align="center">&nbsp;</td>
-            </tr>
-            <tr>
+            {% for kelas in kelas_terpilih %}
+                <tr>
+                    <td align="center">{{ loop.index }}</td>
+                    <td align="center">{{ kelas['kode_matkul'] | uppercase }}</td>
+                    <td>{{ kelas['mata_kuliah']  | uppercase }}</td>
+                    <td align="center">{{ kelas['sks']  | uppercase }}</td>
+                    <td align="center">{{ kelas['grup']  | uppercase }}</td>
+                    <td align="center">&nbsp;</td>
+                </tr>
+            {% endfor %}
                 <th colspan="3">JUMLAH SKS</th>
-                <th align="center">22</th>
+                <th align="center">{{totalsks}}</th>
                 <th>&nbsp;</th>
                 <th>&nbsp;</th>
             </tr>
@@ -274,7 +230,7 @@
                 <td>&nbsp;</td>
                 <td class="ttd" width="200">
                     <p>Surabaya,
-                        6 Desember 2019<br>
+                        17 Desember 2019<br>
                         Kepala BAPKM,
                         <br>
                         <br>

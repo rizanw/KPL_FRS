@@ -1,4 +1,4 @@
-{% extends 'dosen/layout.volt' %}
+{% extends 'mahasiswa/layout.volt' %}
 
 {% block title %}FRS{% endblock %}
 
@@ -41,9 +41,8 @@
 {% endblock %}
 
 {% block navbar %}
-<a class="nav-link" href="/">Home</a>
-<a class="nav-link active" href="frs">Daftar Anak Wali</a>
-<a class="nav-link" href="kelas">Daftar Peserta Kelas</a>
+<a class="nav-link" href="index">Home</a>
+<a class="nav-link active" href="frs">FRS</a>
 {% endblock %}
 
 {% block content %}
@@ -108,15 +107,21 @@
         </table>
     </div>
 
+    <a href="cetak" class="btn btn-light btn-sm mt-2 mb-2">Klik di sini untuk KRSM versi cetak</a>
+
     <table class="table table-striped mt-6" cellpadding="4" cellspacing="0">
         <thead class="thead-dark">
-            <tr>
+            <tr class="text-center">
                 <th width="70" align="center" scope="col">Kode</th>
                 <th width="270" align="center" scope="col">Mata Kuliah</th>
                 <th width="30" align="center" scope="col">SKS</th>
                 <th width="30" align="center" scope="col">Kelas</th>
                 <th width="270" align="center" scope="col">Dosen</th>
+                {% if frs['is_disetujui'] is sameas("1") %}
                 <th width="50" align="center" scope="col">Nilai</th>
+                {% else %}
+                <th width="50" align="center" scope="col">Aksi</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -127,25 +132,36 @@
                 <td align="center">{{ kelas['sks']}}</td>
                 <td align="center">{{ kelas['grup']}}</td>
                 <td>{{ kelas['nama_dosen']}}</td>
-                <td align="center"> - </td>
+                {% if frs['is_disetujui'] is sameas("1") %}
+                    <td align="center"> - </td>
+                {% else %}
+                    <td align="center">
+                        <form method="post" action="{{ url('frs/frs/frs') }}">
+                            <input type="hidden" name="dodrop" value="1">
+                            <input type="hidden" name="id_kelas" value="{{ kelas['id_kelas'] }}">
+                            <button type="submit">drop</button>
+                        </form>
+                    </td>
+                {% endif %}
             </tr>
         {% endfor %}
-            <tr class="bg-dark text-white">
-                <td colspan="2" align="right"><strong>Total SKS</strong></td>
-                <td align="center"><strong>{{totalsks}}</strong></td>
-                <td align="center" colspan="3">&nbsp;</td>
-            </tr>
+        <tr class="bg-dark text-white">
+            <td colspan="2" align="right"><strong>Total SKS</strong></td>
+            <td align="center"><strong>{{ totalsks }}</strong></td>
+            <td align="center" colspan="3">&nbsp;</td>
+        </tr>
         </tbody>
     </table>
-    <p class="text-left">Keterangan : </p>
-    <table class="mb-2">
-        <tr>
-            <td border="2" bgcolor="#FF3A3A">
-                <div class="pt-2 pl-4 pr-4"></div>
-            </td>
-            <td>mahasiswa mengambil mata kuliah semester atas</td>
-        </tr>
-    </table>
+{#    <p class="text-left">Keterangan : </p>#}
+{#    <table class="mb-2">#}
+{#        <tr>#}
+{#            <td border="2" bgcolor="#FF3A3A">#}
+{#                <div class="pt-2 pl-4 pr-4"></div>#}
+{#            </td>#}
+{#            <td>mahasiswa mengambil mata kuliah semester atas</td>#}
+{#        </tr>#}
+{#    </table>#}
+
     {% if frs['is_disetujui'] is sameas("1") %}
     <table class="table mb-5">
         <tr height="30" bgcolor="#C6EFFF">
@@ -155,21 +171,48 @@
         </tr>
     </table>
     {% else %}
-        <table class="table mb-5">
-            <tr height="30" bgcolor="#4cff00">
-                <td align="center" colspan="6" style="border:1px solid #0000FF">
-                    <font color="#0000FF">
-                        <strong>
-                            <form method="post" action="{{ url("frs/frs/frs/") ~ mahasiswa['nrp'] }}">
-                                <input type="hidden" name="setuju" value="1">
-                                <input type="hidden" name="id_frs" value="{{ frs['id'] }}">
-                                <button type="submit">SETUJUI FRS</button>
-                            </form>
-                        </strong>
-                    </font>
-                </td>
-            </tr>
-        </table>
+    <div class="border mt-5 p-3 mb-3">
+        <form method="post" action="{{ url('frs/frs/frs') }}">
+            <div class="form-group">
+                <label for="matkulUMPB">Mata Kuliah UPMB</label>
+                <div class="input-group">
+                    <div>
+                        <input type="hidden" name="nrp" value="{{ mahasiswa['nrp'] }}">
+                        <input type="hidden" name="id_frs" value="{{ frs['id'] }}">
+                    </div>
+                    <select class="form-control" id="matkulUMPB" name="id_kelas">
+                        {% for kelas in upmb %}
+                       <option value="{{kelas['id_kelas']}}">
+                           {{kelas['kode_matkul']}} | {{kelas['mata_kuliah']}} | {{kelas['sks']}} |  {{kelas['grup']}}  |  {{kelas['nama_dosen']}}
+                       </option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-success ml-2">Ambil</button>
+                    <!-- <button type="submit" class="btn btn-primary ml-2" formaction = "{{ url('frs/class/peserta')}}">Lihat Kelas</button> -->
+                </div>
+            </div>
+        </form>
+        <form method="post" action="{{ url('frs/frs/frs') }}">
+            <div class="form-group">
+                <label for="matkulUMPB">Mata Kuliah Departemen</label>
+                <div class="input-group">
+                    <div>
+                        <input type="hidden" name="nrp" value="{{ mahasiswa['nrp'] }}">
+                        <input type="hidden" name="id_frs" value="{{ frs['id'] }}">
+                    </div>
+                    <select class="form-control" id="matkulUMPB" name="id_kelas">
+                        {% for kelas in dept %}
+                        <option value="{{kelas['id_kelas']}}">
+                            {{kelas['kode_matkul']}} | {{kelas['mata_kuliah']}} | {{kelas['sks']}} |  {{kelas['grup']}}  |  {{kelas['nama_dosen']}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-success ml-2">Ambil</button>
+                    <!-- <button type="submit" class="btn btn-primary ml-2" formaction = "{{ url('frs/class/peserta')}}">Lihat Kelas</button> -->
+                </div>
+            </div>
+        </form>
+    </div>
     {% endif %}
 </div>
 

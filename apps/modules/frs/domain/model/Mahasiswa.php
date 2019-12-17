@@ -8,14 +8,7 @@ class Mahasiswa
     private $nrp;
     private $ipk;
     private $doswal;
-
-    public function __construct($nrp, $nama, $ipk, $doswal)
-    {
-        $this->nrp = $nrp;
-        $this->nama = $nama;
-        $this->ipk = $ipk;
-        $this->doswal = $doswal;
-    }
+    private $alamat;
 
     /**
      * @return mixed
@@ -48,5 +41,24 @@ class Mahasiswa
     {
         return $this->ipk;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAlamat()
+    {
+        return $this->alamat;
+    }
+
+    public function __construct($nrp, $nama, $ipk, Dosen $doswal, $alamat)
+    {
+        $this->nrp = $nrp;
+        $this->nama = $nama;
+        $this->ipk = $ipk;
+        $this->doswal = $doswal;
+        $this->alamat = $alamat;
+    }
+
+
 
 }

@@ -2,6 +2,8 @@
 
 namespace Kel5\FRS\Domain\Model;
 
+use Phalcon\Exception;
+
 class Dosen
 {
     private $nama;
