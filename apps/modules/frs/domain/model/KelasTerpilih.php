@@ -4,28 +4,46 @@ namespace Kel5\FRS\Domain\Model;
 
 class KelasTerpilih
 {
-    private $idKelas;
-    private $nrp;
+    private $id_terpilih;
+    private $id_frs;
+    private $id_kelas;
 
-    public function __construct($idKelas, $nrp)
+    /**
+     * KelasTerpilih constructor.
+     * @param $id_terpilih
+     * @param $id_frs
+     * @param $id_kelas
+     */
+    public function __construct($id_terpilih, $id_frs, $id_kelas)
     {
-        $this->idKelas = $idKelas;
-        $this->nrp = $nrp;
+        $this->id_terpilih = $id_terpilih;
+        $this->id_frs = $id_frs;
+        $this->id_kelas = $id_kelas;
     }
 
     /**
      * @return mixed
      */
-    public function getKode()
+    public function getIdTerpilih()
     {
-        return $this->idKelas;
+        return $this->id_terpilih;
     }
 
     /**
      * @return mixed
      */
-    public function getNrp()
+    public function getIdFrs()
     {
-        return $this->nrp;
+        return $this->id_frs;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdKelas()
+    {
+        return $this->id_kelas;
+    }
+
+
 }

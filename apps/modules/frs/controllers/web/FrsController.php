@@ -39,7 +39,6 @@ class FrsController extends Controller
 
     public function menyusunFRS()
     {
-
     }
 
     public function dropkelasAction()
