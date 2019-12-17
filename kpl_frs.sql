@@ -3,7 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2019 at 06:18 AM
+
+-- Generation Time: Dec 17, 2019 at 06:40 AM
+
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -103,10 +105,11 @@ INSERT INTO `kelas` (`id_kelas`, `mata_kuliah`, `kode_matkul`, `sks`, `grup`, `k
 --
 
 CREATE TABLE `kelasterpilih` (
-  `id_terpilih` varchar(8) NOT NULL,
+  `id` varchar(8) NOT NULL,
   `id_frs` varchar(8) DEFAULT NULL,
   `id_kelas` varchar(8) DEFAULT NULL,
   `nrp` int(14) NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -153,7 +156,7 @@ ALTER TABLE `frs`
 -- Indexes for table `kelasterpilih`
 --
 ALTER TABLE `kelasterpilih`
-  ADD PRIMARY KEY (`id_terpilih`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `mahasiswa`
