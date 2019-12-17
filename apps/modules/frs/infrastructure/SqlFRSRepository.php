@@ -209,14 +209,91 @@ class SqlFRSRepository implements FRSRepository
     public function addKelasTerpilih(KelasTerpilih $kelasTerpilih)
     {
         $db = $this->di->getShared('db');
-        $sql = "INSERT INTO kelasterpilih(id_terpilih, id_frs, id_kelas, nrp)
-                VALUES (:id, :id_frs, :id_kelas, :nrp)";
 
-        $db->query($sql, [
-            'id' => Uuid::uuid4()->toString(),
+        $sql = "SELECT * FROM kelasterpilih WHERE id_frs = :id_frs AND id_kelas = :id_kelas AND nrp = :nrp";
+
+        $res = $db->fetchOne($sql, \Phalcon\Db::FETCH_ASSOC, [
             'id_frs' => $kelasTerpilih->getIdFrs(),
             'id_kelas' => $kelasTerpilih->getIdKelas(),
             'nrp' => $kelasTerpilih->getNrp()
+        ]);
+
+        if(!$res){
+            $sql = "INSERT INTO kelasterpilih(id, id_frs, id_kelas, nrp)
+                VALUES (:id, :id_frs, :id_kelas, :nrp)";
+
+            $db->query($sql, [
+                'id_kelas' => Uuid::uuid4()->toString(),
+                'id_frs' => $kelasTerpilih->getIdFrs(),
+                'id_kelas' => $kelasTerpilih->getIdKelas(),
+                'nrp' => $kelasTerpilih->getNrp()
+            ]);
+        }
+    }
+
+    public function getKelasTerpilih(FRS $frs)
+    {
+        $db =  $this->di->getShared('db');
+
+        $sql = "SELECT * FROM kelasterpilih WHERE nrp = :nrp";
+        $res = $db->fetchAll($sql, \Phalcon\Db::FETCH_ASSOC, [
+            'nrp' => $frs->getNrp()
+        ]);
+
+        $daftarKelas = array();
+
+        foreach ($res as $r){
+            $sql = "SELECT * FROM kelas WHERE id_kelas = :id_kelas";
+            $res = $db->fetchOne($sql, \Phalcon\Db::FETCH_ASSOC, [
+                'id_kelas' => $r['id_kelas'],
+            ]);
+
+            $sql = "SELECT * FROM dosen WHERE nip = :nip";
+            $dosen = $db->fetchOne($sql, \Phalcon\Db::FETCH_ASSOC, [
+                'nip' => $res['dosen'],
+            ]);
+
+            $kelas = new Kelas(
+                $res['id_kelas'],
+                $res['mata_kuliah'],
+                $res['kode_matkul'],
+                $res['sks'],
+                $res['grup'],
+                $res['kapasitas'],
+                $res['dosen'],
+                $res['ruang'],
+                $res['Waktu_mulai'],
+                $res['waktu_selesai'],
+                $res['periode'],
+                $res['tahun'],
+                $dosen['nama']
+            );
+
+            array_push($daftarKelas, $kelas);
+        }
+
+        return $daftarKelas;
+    }
+
+    public function confirmFrs($idFrs)
+    {
+        $db =  $this->di->getShared('db');
+
+        $sql = "UPDATE frs SET is_setuju = 1 WHERE id_frs = :id_frs";
+
+        $db->query($sql, [
+            'id_frs' => $idFrs,
+        ]);
+    }
+
+    public function dropKelas($idKelas)
+    {
+        $db =  $this->di->getShared('db');
+
+        $sql = "DELETE FROM kelasterpilih WHERE id_kelas = :id_kelas";
+
+        $db->query($sql, [
+            'id_kelas' => $idKelas,
         ]);
     }
 
@@ -253,10 +330,6 @@ class SqlFRSRepository implements FRSRepository
 
     public function getPeserta($id_kelas): array
     {
-        $db = $this->di->getShared('db');
-        $sql = "select * from kelasTerpilih where id_kelas = :id_kelas";
-        $result = $db->fetchAll($sql, \Phalcon\Db::FETCH_ASSOC, [
-            'id_kelas' => $id_kelas
-        ]);
+
     }
 }

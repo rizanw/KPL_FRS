@@ -30,6 +30,28 @@ class ViewFrsService
                 $frs->getTahun(),
                 $frs->getIsDisetujui()
             );
+
+            $kelasTerpilih = $this->frsRepository->getKelasTerpilih($frs);
+
+            if ($kelasTerpilih) {
+                foreach ($kelasTerpilih as $row) {
+                    $response->tambahKelas(
+                        $row->id_kelas,
+                        $row->mata_kuliah,
+                        $row->kode_matkul,
+                        $row->sks,
+                        $row->grup,
+                        $row->kapasitas,
+                        $row->dosen,
+                        $row->ruang,
+                        $row->Waktu_mulai,
+                        $row->waktu_selesai,
+                        $row->periode,
+                        $row->tahun,
+                        $row->nama_dosen
+                    );
+                }
+            }
         }
 
         if ($mahasiswa) {
