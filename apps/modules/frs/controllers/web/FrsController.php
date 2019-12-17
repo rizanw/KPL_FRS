@@ -16,8 +16,8 @@ use Kel5\FRS\Application\ViewFrsService;
 
 class FrsController extends Controller
 {
-    private $nrp;
-    private $nip;
+    private $nrp = "198410162008121002";
+    private $nip = "05111740000183";
     private $isDosen;
     private $frsRepository;
 
@@ -25,7 +25,7 @@ class FrsController extends Controller
     {
         $this->frsRepository = $this->di->getShared('sql_frs_repository');
 
-        $this->isDosen = False;
+        $this->isDosen = True;
         if ($this->isDosen) {
             $this->nip = "198410162008121002";
         } else {
@@ -51,8 +51,6 @@ class FrsController extends Controller
         }
 
     }
-
-
 
     public function frsAction($anakWaliNrp = null)
     {
