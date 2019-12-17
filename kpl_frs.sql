@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Des 2019 pada 03.58
--- Versi server: 10.1.32-MariaDB
--- Versi PHP: 7.2.5
+-- Generation Time: Dec 17, 2019 at 06:18 AM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `dosen`
+-- Table structure for table `dosen`
 --
 
 CREATE TABLE `dosen` (
@@ -34,7 +34,7 @@ CREATE TABLE `dosen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `dosen`
+-- Dumping data for table `dosen`
 --
 
 INSERT INTO `dosen` (`nip`, `nama`) VALUES
@@ -44,21 +44,29 @@ INSERT INTO `dosen` (`nip`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `frs`
+-- Table structure for table `frs`
 --
 
 CREATE TABLE `frs` (
-  `id_frs` varchar(8) NOT NULL,
+  `id_frs` varchar(255) NOT NULL,
   `nrp` char(14) NOT NULL,
-  `is_Setuju` tinyint(1) DEFAULT NULL,
+  `is_setuju` tinyint(1) DEFAULT NULL,
   `periode` tinyint(1) DEFAULT NULL,
   `tahun` year(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `frs`
+--
+
+INSERT INTO `frs` (`id_frs`, `nrp`, `is_setuju`, `periode`, `tahun`) VALUES
+('62f67f67', '05111740000183', 0, 1, 2019),
+('963f154c-9626-4d1c-99a3-581c79624f44', '05111740000183', 0, 0, 2019);
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kelas`
+-- Table structure for table `kelas`
 --
 
 CREATE TABLE `kelas` (
@@ -78,7 +86,7 @@ CREATE TABLE `kelas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `kelas`
+-- Dumping data for table `kelas`
 --
 
 INSERT INTO `kelas` (`id_kelas`, `mata_kuliah`, `kode_matkul`, `sks`, `grup`, `kapasitas`, `dosen`, `ruang`, `Waktu_mulai`, `waktu_selesai`, `periode`, `tahun`, `is_upmb`) VALUES
@@ -91,62 +99,64 @@ INSERT INTO `kelas` (`id_kelas`, `mata_kuliah`, `kode_matkul`, `sks`, `grup`, `k
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kelasterpilih`
+-- Table structure for table `kelasterpilih`
 --
 
 CREATE TABLE `kelasterpilih` (
   `id_terpilih` varchar(8) NOT NULL,
   `id_frs` varchar(8) DEFAULT NULL,
-  `id_kelas` varchar(8) DEFAULT NULL
+  `id_kelas` varchar(8) DEFAULT NULL,
+  `nrp` int(14) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `mahasiswa`
+-- Table structure for table `mahasiswa`
 --
 
 CREATE TABLE `mahasiswa` (
   `nrp` char(14) NOT NULL,
   `nama` varchar(31) NOT NULL,
-  `IPK` int(11) NOT NULL,
-  `doswal` char(18) DEFAULT NULL
+  `IPK` float NOT NULL,
+  `doswal` char(18) DEFAULT NULL,
+  `alamat` varchar(225) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `mahasiswa`
+-- Dumping data for table `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`nrp`, `nama`, `IPK`, `doswal`) VALUES
-('05111640000001', 'Andre', 4, '198410162008121002'),
-('05111640000002', 'Jimi', 4, '198410162008121002'),
-('05111640000003', 'Hazimi', 4, '198410162008121002'),
-('05111640000043', 'Arrafi', 3, '198410162008121002');
+INSERT INTO `mahasiswa` (`nrp`, `nama`, `IPK`, `doswal`, `alamat`) VALUES
+('05111640000002', 'Jimi', 4, '198410162008121002', NULL),
+('05111640000003', 'Hazimi', 4, '198410162008121002', NULL),
+('05111640000043', 'Arrafi', 3, '198410162008121002', NULL),
+('05111740000183', 'Rizky Andre Wibisono', 3.5, '198410162008121002', 'JALAN HALMAHERA VII A/01 RT 02 / RW 03, KEC. JOMBANG,  	Kab. Jombang, Jawa Timur');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `dosen`
+-- Indexes for table `dosen`
 --
 ALTER TABLE `dosen`
   ADD PRIMARY KEY (`nip`);
 
 --
--- Indeks untuk tabel `frs`
+-- Indexes for table `frs`
 --
 ALTER TABLE `frs`
   ADD PRIMARY KEY (`id_frs`);
 
 --
--- Indeks untuk tabel `kelasterpilih`
+-- Indexes for table `kelasterpilih`
 --
 ALTER TABLE `kelasterpilih`
   ADD PRIMARY KEY (`id_terpilih`);
 
 --
--- Indeks untuk tabel `mahasiswa`
+-- Indexes for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
   ADD PRIMARY KEY (`nrp`);
