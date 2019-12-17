@@ -219,4 +219,44 @@ class SqlFRSRepository implements FRSRepository
             'nrp' => $kelasTerpilih->getNrp()
         ]);
     }
+
+
+    public function getKelasByDosen($nip): array
+    {
+        $db = $this->di->getShared('db');
+        $sql = "select * from kelas where dosen = :nip";
+        $result = $db->fetchAll($sql, \Phalcon\Db::FETCH_ASSOC, [
+            'nip' => $nip
+        ]);
+        $resultArray= array();
+
+        foreach($result as $row) {
+            $kelas = new Kelas(
+                $row['id_kelas'],
+                $row['mata_kuliah'],
+                $row['kode_matkul'],
+                $row['sks'],
+                $row['grup'],
+                $row['kapasitas'],
+                $row['dosen'],
+                $row['ruang'],
+                $row['Waktu_mulai'],
+                $row['waktu_selesai'],
+                $row['periode'],
+                $row['tahun'],
+                $row['nama']
+            );
+            array_push($resultArray, $kelas);
+        }
+        return $resultArray;
+    }
+
+    public function getPeserta($id_kelas): array
+    {
+        $db = $this->di->getShared('db');
+        $sql = "select * from kelasTerpilih where id_kelas = :id_kelas";
+        $result = $db->fetchAll($sql, \Phalcon\Db::FETCH_ASSOC, [
+            'id_kelas' => $id_kelas
+        ]);
+    }
 }

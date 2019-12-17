@@ -10,4 +10,6 @@ interface FRSRepository
     public function addKelasTerpilih(KelasTerpilih $kelasTerpilih);
     public function ambilKelasUpmb() : array;
     public function ambilKelasDept() : array;
+    public function getKelasByDosen($nip) : array;
+    public function getPeserta($id_kelas) :array;
 }
