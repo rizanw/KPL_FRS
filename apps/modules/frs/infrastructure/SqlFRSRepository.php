@@ -3,6 +3,7 @@
 namespace Kel5\FRS\Infrastructure;
 
 use Kel5\FRS\Domain\Model\FRSRepository;
+use Kel5\FRS\Domain\Model\KelasTerpilih;
 use Kel5\FRS\Domain\Model\Mahasiswa;
 use Kel5\FRS\Domain\Model\Dosen;
 use Kel5\FRS\Domain\Model\FRS;
@@ -205,5 +206,17 @@ class SqlFRSRepository implements FRSRepository
         return $resultArray;
     }
 
+    public function addKelasTerpilih(KelasTerpilih $kelasTerpilih)
+    {
+        $db = $this->di->getShared('db');
+        $sql = "INSERT INTO kelasterpilih(id_terpilih, id_frs, id_kelas, nrp)
+                VALUES (:id, :id_frs, :id_kelas, :nrp)";
 
+        $db->query($sql, [
+            'id' => Uuid::uuid4()->toString(),
+            'id_frs' => $kelasTerpilih->getIdFrs(),
+            'id_kelas' => $kelasTerpilih->getIdKelas(),
+            'nrp' => $kelasTerpilih->getNrp()
+        ]);
+    }
 }
