@@ -11,13 +11,17 @@ use Kel5\FRS\Application\DropKelasFRSRequest;
 use Kel5\FRS\Application\DropKelasFRSService;
 use Kel5\FRS\Application\ViewAnakWaliService;
 use Kel5\FRS\Application\MenampilkanKelasService;
-use Phalcon\Mvc\Controller;
 use Kel5\FRS\Application\ViewFrsService;
+use Phalcon\Mvc\Controller;
 
+/**
+ * Class Controller untuk moodul FRS
+ * @package Kel5\FRS\Controllers\Web
+ */
 class FrsController extends Controller
 {
-    private $nrp = "198410162008121002";
-    private $nip = "05111740000183";
+    private $nrp;
+    private $nip;
     private $isDosen;
     private $frsRepository;
 
@@ -25,7 +29,7 @@ class FrsController extends Controller
     {
         $this->frsRepository = $this->di->getShared('sql_frs_repository');
 
-        $this->isDosen = True;
+        $this->isDosen = False;
         if ($this->isDosen) {
             $this->nip = "198410162008121002";
         } else {
@@ -33,33 +37,38 @@ class FrsController extends Controller
         }
     }
 
+    /**
+     * Halaman index
+     * @return \Phalcon\Mvc\View
+     */
     public function indexAction()
     {
-        return $this->view->pick('login');
-    }
-
-    public function loginAction()
-    {
-        if ($_POST['usid'] == 'dosen') {
-            $this->nip = "198410162008121002";
-            $this->isDosen = true;
+        if ($this->isDosen) {
             return $this->view->pick('dosen/home');
         } else {
-            $this->nrp = "05111740000183";
-            $this->isDosen = false;
             return $this->view->pick('mahasiswa/home');
         }
-
     }
 
+    /**
+     * Halaman FRS
+     * @param null $anakWaliNrp untuk dosen only
+     * @return \Phalcon\Mvc\View|string
+     */
     public function frsAction($anakWaliNrp = null)
     {
+        /*
+         * Service untuk mengambil data kelas
+         */
         $service = new MenampilkanKelasService($this->frsRepository);
         $responseKelasDept = $service->executeDept();
         $responseKelasUpmb = $service->executeUpmb();
         $this->view->setVar('dept', $responseKelasDept->kelas);
         $this->view->setVar('upmb', $responseKelasUpmb->kelas);
 
+        /*
+         * periksa http post request yang masuk di halaman FRS
+         */
         if ($this->request->isPost()) {
             $idKelas = $this->request->getPost('id_kelas');
             $idFrs = $this->request->getPost('id_frs');
@@ -68,10 +77,16 @@ class FrsController extends Controller
             $dropKelas = $this->request->getPost('dodrop');
 
             if ($dropKelas) {
+                /*
+                 * service drop kelas ketika mendapat post request drop kelas
+                 */
                 $request = new DropKelasFRSRequest($idKelas);
                 $service = new  DropKelasFRSService($this->frsRepository);
                 $service->execute($request);
             } elseif ($idKelas) {
+                /*
+                 * service add kelas ketika mendapat post request drop kelas
+                 */
                 $request = new AddKelasRequest(
                     $idFrs,
                     $idKelas,
@@ -80,6 +95,9 @@ class FrsController extends Controller
                 $service = new AddKelasService($this->frsRepository);
                 $service->execute($request);
             } elseif ($setujuiFrs) {
+                /*
+                 * service menyetujui frs dan membatalkan persetujuan frs
+                 */
                 $request = new ConfirmFRSRequest(
                     $idFrs
                 );
@@ -88,6 +106,9 @@ class FrsController extends Controller
             }
         }
 
+        /*
+         * tampilan halaman frs untuk dosen
+         */
         if ($this->isDosen) {
             if (!$anakWaliNrp)
                 return "Mahasiswa tidak ditemukan";
@@ -114,7 +135,12 @@ class FrsController extends Controller
             $this->view->setVar('mahasiswa', $viewFrsResponse->mahasiswa);
             $this->view->setVar('kelas_terpilih', $viewFrsResponse->kelasTerpilih);
             return $this->view->pick('dosen/frs');
-        } else {
+        }
+
+        /*
+         * tampilan halaman frs untuk mahasiswa
+         */
+        if (!$this->isDosen) {
             $viewFrsService = new ViewFrsService($this->frsRepository);
             $viewFrsResponse = $viewFrsService->execute($this->nrp);
 
@@ -139,8 +165,13 @@ class FrsController extends Controller
             $this->view->setVar('kelas_terpilih', $viewFrsResponse->kelasTerpilih);
             return $this->view->pick('mahasiswa/frs');
         }
+
     }
 
+    /**
+     * Halaman cetak frs mahasiswa
+     * @return \Phalcon\Mvc\View
+     */
     public function cetakAction()
     {
         $viewFrsService = new ViewFrsService($this->frsRepository);
@@ -157,6 +188,11 @@ class FrsController extends Controller
         return $this->view->pick('mahasiswa/cetak');
     }
 
+    /**
+     * Halaman daftar anak wali
+     *
+     * @return \Phalcon\Mvc\View|string
+     */
     public function anakWaliAction()
     {
         if ($this->isDosen) {
@@ -169,7 +205,11 @@ class FrsController extends Controller
         return "403";
     }
 
-    public function lihatPesertaAction(){
+    /**
+     * @return \Phalcon\Mvc\View
+     */
+    public function kelasAction()
+    {
         return $this->view->pick('dosen/kelas');
     }
 }
