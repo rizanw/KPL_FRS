@@ -1,87 +1,76 @@
 <?php
-    
+
 namespace Kel5\FRS\Domain\Model;
 
 class Kelas
 {
-    public  $id_kelas;
-    public  $mata_kuliah;
-    public  $kode_matkul;
-    public  $sks;
-    public  $grup;
-    public  $kapasitas;
-    public  $dosen;
-    public  $ruang;
-    public  $Waktu_mulai;
-    public  $waktu_selesai;
-    public  $periode;
-    public  $tahun;
-    public  $is_upmb;
-    public  $nama_dosen;
+    private $id;
+    private $namaMataKuliah;
+    private $kodeMataKuliah;
+    private $sks;
+    private $grup;
+    private $dosen;
+    private $ruang;
+    private $waktuMulai;
+    private $waktuSelesai;
+    private $periode;
+    private $tahun;
+    private $kapasitas;
 
-    /**
-     * @return mixed
-     */
-    public function getNamaDosen()
+    private $is_upmb;
+
+    public function updateKapasitas()
     {
-        return $this->nama_dosen;
+        return $this->kapasitas - 1;
     }
 
-    /**
-     * Kelas constructor.
-     * @param $id_kelas
-     * @param $mata_kuliah
-     * @param $kode_matkul
-     * @param $sks
-     * @param $grup
-     * @param $kapasitas
-     * @param $dosen
-     * @param $ruang
-     * @param $Waktu_mulai
-     * @param $waktu_selesai
-     * @param $periode
-     * @param $tahun
-     */
-    public function __construct($id_kelas, $mata_kuliah, $kode_matkul, $sks,
-                                $grup, $kapasitas, $dosen, $ruang, $Waktu_mulai, $waktu_selesai, $periode, $tahun,$nama_dosen)
+    public function equals(Kelas $kelas)
     {
-        $this->id_kelas = $id_kelas;
-        $this->mata_kuliah = $mata_kuliah;
-        $this->kode_matkul = $kode_matkul;
+        if($this->id == $kelas->id){
+            return true;
+        }
+        return false;
+    }
+
+    public function __construct($idKelas, $namaMatkul, $kodeMatkul, $sks, $grup, $kapasitas, $ruang, $waktuMulai, $waktuSelesai, $periode, $tahun, Dosen $dosen)
+    {
+        $this->id = $idKelas;
+        $this->namaMataKuliah = $namaMatkul;
+        $this->kodeMataKuliah = $kodeMatkul;
         $this->sks = $sks;
         $this->grup = $grup;
-        $this->kapasitas = $kapasitas;
         $this->dosen = $dosen;
         $this->ruang = $ruang;
-        $this->Waktu_mulai = $Waktu_mulai;
-        $this->waktu_selesai = $waktu_selesai;
+        $this->waktuMulai = $waktuMulai;
+        $this->waktuSelesai = $waktuSelesai;
         $this->periode = $periode;
         $this->tahun = $tahun;
-        $this->nama_dosen = $nama_dosen;
+
+        $this->kapasitas = $kapasitas;
     }
 
     /**
      * @return mixed
      */
-    public function getIdKelas()
+    public function getId()
     {
-        return $this->id_kelas;
+        return $this->id;
     }
 
     /**
      * @return mixed
      */
-    public function getMataKuliah()
+    public function getNamaMataKuliah()
     {
-        return $this->mata_kuliah;
+        return $this->namaMataKuliah;
     }
 
     /**
      * @return mixed
      */
-    public function getKodeMatkul()
+    public function getKodeMataKuliah()
     {
-        return $this->kode_matkul;
+        return $this->kodeMataKuliah;
     }
 
     /**
@@ -101,17 +90,9 @@ class Kelas
     }
 
     /**
-     * @return mixed
+     * @return Dosen
      */
-    public function getKapasitas()
-    {
-        return $this->kapasitas;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDosen()
+    public function getDosen(): Dosen
     {
         return $this->dosen;
     }
@@ -129,7 +110,7 @@ class Kelas
      */
     public function getWaktuMulai()
     {
-        return $this->Waktu_mulai;
+        return $this->waktuMulai;
     }
 
     /**
@@ -137,7 +118,7 @@ class Kelas
      */
     public function getWaktuSelesai()
     {
-        return $this->waktu_selesai;
+        return $this->waktuSelesai;
     }
 
     /**
@@ -159,11 +140,9 @@ class Kelas
     /**
      * @return mixed
      */
-    public function getIsUpmb()
+    public function getKapasitas()
     {
-        return $this->is_upmb;
+        return $this->kapasitas;
     }
-
-
 
 }

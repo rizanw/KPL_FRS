@@ -11,12 +11,15 @@ class MahasiswaBatasSks
         $this->batasSks = $batasSks;
     }
 
-    /**
-     * @return null
-     */
-    public function getBatasSks()
+    public function equals(MahasiswaBatasSks $mahasiswaBatasSks) : bool
+    {
+        return $this->batasSks === $mahasiswaBatasSks;
+    }
+
+    public function batasSks() : int
     {
         return $this->batasSks;
     }
+
 
 }

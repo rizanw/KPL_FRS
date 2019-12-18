@@ -10,7 +10,7 @@ use Kel5\FRS\Application\ConfirmFRSService;
 use Kel5\FRS\Application\DropKelasFRSRequest;
 use Kel5\FRS\Application\DropKelasFRSService;
 use Kel5\FRS\Application\ViewAnakWaliService;
-use Kel5\FRS\Application\MenampilkanKelasService;
+use Kel5\FRS\Application\ViewKelasService;
 use Kel5\FRS\Application\ViewFrsService;
 use Phalcon\Mvc\Controller;
 
@@ -60,7 +60,7 @@ class FrsController extends Controller
         /*
          * Service untuk mengambil data kelas
          */
-        $service = new MenampilkanKelasService($this->frsRepository);
+        $service = new ViewKelasService($this->frsRepository);
         $responseKelasDept = $service->executeDept();
         $responseKelasUpmb = $service->executeUpmb();
         $this->view->setVar('dept', $responseKelasDept->kelas);
@@ -144,25 +144,25 @@ class FrsController extends Controller
             $viewFrsService = new ViewFrsService($this->frsRepository);
             $viewFrsResponse = $viewFrsService->execute($this->nrp);
 
-            $totalSks = 0;
-            foreach ($viewFrsResponse->kelasTerpilih as $item) {
-                $totalSks = $totalSks + $item['sks'];
-            }
+//            $totalSks = 0;
+//            foreach ($viewFrsResponse->kelasTerpilih as $item) {
+//                $totalSks = $totalSks + $item['sks'];
+//            }
 
-            $batasSks = 0;
-            if ((float)$viewFrsResponse->mahasiswa['ipk'] < 2.0) {
-                $batasSks = 16;
-            } elseif ((float)$viewFrsResponse->mahasiswa['ipk'] > 3.0) {
-                $batasSks = 24;
-            } else {
-                $batasSks = 20;
-            }
+//            $batasSks = 0;
+//            if ((float)$viewFrsResponse->mahasiswa['ipk'] < 2.0) {
+//                $batasSks = 16;
+//            } elseif ((float)$viewFrsResponse->mahasiswa['ipk'] > 3.0) {
+//                $batasSks = 24;
+//            } else {
+//                $batasSks = 20;
+//            }
 
-            $this->view->setVar('totalsks', $totalSks);
-            $this->view->setVar('batassks', $batasSks);
+//            $this->view->setVar('totalsks', $totalSks);
+//            $this->view->setVar('batassks', $batasSks);
             $this->view->setVar('frs', $viewFrsResponse->frs);
             $this->view->setVar('mahasiswa', $viewFrsResponse->mahasiswa);
-            $this->view->setVar('kelas_terpilih', $viewFrsResponse->kelasTerpilih);
+//            $this->view->setVar('kelas_terpilih', $viewFrsResponse->kelasTerpilih);
             return $this->view->pick('mahasiswa/frs');
         }
 

@@ -39,5 +39,4 @@ class KelasTerpilih
         return $this->idKelas;
     }
 
-
 }

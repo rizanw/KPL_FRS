@@ -5,28 +5,59 @@ namespace Kel5\FRS\Domain\Model;
 class FRS
 {
     private $id;
-    private $nrp;
+    private $mahasiswa;
     private $periode;
     private $tahun;
     private $isDisetujui;
+    private $kelasTerpilih;
+    private $totalSks;
 
-    public $kelasTerpilih;
-
-
-    public function createListKelas(Kelas $kelas)
+    /**
+     * @return mixed
+     */
+    public function getTotalSks()
     {
-        array_push($this->kelasTerpilih, $kelas);
+        foreach ($this->kelasTerpilih as $kelas){
+            $this->totalSks += $kelas->getSks();
+        }
+
+        return $this->totalSks;
     }
 
-    public function __construct($id, $nrp, $periode, $tahun, $isDisetujui)
+    public function addKelas(Kelas $kelas)
     {
-        $this->id = $id;
-        $this->nrp = $nrp;
+        $exist = false;
+        foreach ($this->kelasTerpilih as $existingKelas){
+            if($existingKelas->equals($kelas)){
+                $exist = true;
+            }
+        }
+
+        if(!$exist){
+            array_push($this->kelasTerpilih, $kelas);
+
+            $this->totalSks = $this->totalSks + $kelas->getSks();
+            // todo: update kapasitas kelas
+        } else {
+
+            $this->totalSks = $this->totalSks + $kelas->getSks();
+            return "kelas sudah diambil";
+        }
+
+
+    }
+
+
+    public function __construct($id, Mahasiswa $mahasiswa, $periode, $tahun, $isDisetujui)
+    {
+        $this->id = $id ;
+        $this->mahasiswa = $mahasiswa;
         $this->periode = $periode;
         $this->tahun = $tahun;
         $this->isDisetujui = $isDisetujui;
 
         $this->kelasTerpilih = array();
+        $this->totalSks = 0;
     }
 
     /**
@@ -40,9 +71,9 @@ class FRS
     /**
      * @return mixed
      */
-    public function getNrp()
+    public function getMahasiswa()
     {
-        return $this->nrp;
+        return $this->mahasiswa;
     }
 
     /**
@@ -76,6 +107,4 @@ class FRS
     {
         return $this->kelasTerpilih;
     }
-
-
 }

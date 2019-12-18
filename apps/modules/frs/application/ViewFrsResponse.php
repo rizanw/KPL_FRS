@@ -17,14 +17,14 @@ class ViewFrsResponse
         $this->kelasTerpilih = array();
     }
 
-    public function addFrsResponse($id, $nrp, $periode, $tahun, $isDisetujui)
+    public function addFrsResponse($id, $periode, $tahun, $isDisetujui, $totalSks)
     {
         $this->frs = array(
             'id' => $id,
-            'nrp' => $nrp,
             'periode' => $periode,
             'tahun' => $tahun,
-            'is_disetujui' => $isDisetujui
+            'is_disetujui' => $isDisetujui,
+            'total_sks' => $totalSks
         );
 
         return $this->frs;
@@ -36,8 +36,8 @@ class ViewFrsResponse
             'nrp' => $nrp,
             'nama' => $nama,
             'ipk' => $ipk,
-            'doswalnama' => $doswal->getNama(),
-            'doswalnip' => $doswal->getNip(),
+            'doswal_nama' => $doswal->getNama(),
+            'doswal_nip' => $doswal->getNip(),
             'alamat' => $alamat
         );
 
