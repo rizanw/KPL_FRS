@@ -85,13 +85,14 @@ class FrsController extends Controller
                 $service->execute($request);
             } elseif ($idKelas) {
                 /*
-                 * service add kelas ketika mendapat post request drop kelas
+                 * service add kelas ketika mendapat post request tambah kelas
                  */
                 $request = new AddKelasRequest(
                     $idFrs,
                     $idKelas,
                     $nrp
                 );
+
                 $service = new AddKelasService($this->frsRepository);
                 $service->execute($request);
             } elseif ($setujuiFrs) {
@@ -116,21 +117,6 @@ class FrsController extends Controller
             $viewFrsService = new ViewFrsService($this->frsRepository);
             $viewFrsResponse = $viewFrsService->execute($anakWaliNrp);
 
-            $batasSks = 0;
-            if ((float)$viewFrsResponse->mahasiswa['ipk'] < 2.0) {
-                $batasSks = 16;
-            } elseif ((float)$viewFrsResponse->mahasiswa['ipk'] > 3.0) {
-                $batasSks = 24;
-            } else {
-                $batasSks = 20;
-            }
-
-            $totalSks = 0;
-            foreach ($viewFrsResponse->kelasTerpilih as $item) {
-                $totalSks = $totalSks + $item['sks'];
-            }
-            $this->view->setVar('totalsks', $totalSks);
-            $this->view->setVar('batassks', $batasSks);
             $this->view->setVar('frs', $viewFrsResponse->frs);
             $this->view->setVar('mahasiswa', $viewFrsResponse->mahasiswa);
             $this->view->setVar('kelas_terpilih', $viewFrsResponse->kelasTerpilih);
@@ -144,25 +130,9 @@ class FrsController extends Controller
             $viewFrsService = new ViewFrsService($this->frsRepository);
             $viewFrsResponse = $viewFrsService->execute($this->nrp);
 
-//            $totalSks = 0;
-//            foreach ($viewFrsResponse->kelasTerpilih as $item) {
-//                $totalSks = $totalSks + $item['sks'];
-//            }
-
-//            $batasSks = 0;
-//            if ((float)$viewFrsResponse->mahasiswa['ipk'] < 2.0) {
-//                $batasSks = 16;
-//            } elseif ((float)$viewFrsResponse->mahasiswa['ipk'] > 3.0) {
-//                $batasSks = 24;
-//            } else {
-//                $batasSks = 20;
-//            }
-
-//            $this->view->setVar('totalsks', $totalSks);
-//            $this->view->setVar('batassks', $batasSks);
             $this->view->setVar('frs', $viewFrsResponse->frs);
             $this->view->setVar('mahasiswa', $viewFrsResponse->mahasiswa);
-//            $this->view->setVar('kelas_terpilih', $viewFrsResponse->kelasTerpilih);
+            $this->view->setVar('kelas_terpilih', $viewFrsResponse->kelasTerpilih);
             return $this->view->pick('mahasiswa/frs');
         }
 
@@ -178,12 +148,12 @@ class FrsController extends Controller
         $viewFrsResponse = $viewFrsService->execute($this->nrp);
         $this->view->setVar('frs', $viewFrsResponse->frs);
         $this->view->setVar('mahasiswa', $viewFrsResponse->mahasiswa);
-        $this->view->setVar('kelas_terpilih', $viewFrsResponse->kelasTerpilih);
-
-        $totalSks = 0;
-        foreach ($viewFrsResponse->kelasTerpilih as $item) {
-            $totalSks = $totalSks + $item['sks'];
-        }
+//        $this->view->setVar('kelas_terpilih', $viewFrsResponse->kelasTerpilih);
+//
+//        $totalSks = 0;
+//        foreach ($viewFrsResponse->kelasTerpilih as $item) {
+//            $totalSks = $totalSks + $item['sks'];
+//        }
         $this->view->setVar('totalsks', $totalSks);
         return $this->view->pick('mahasiswa/cetak');
     }

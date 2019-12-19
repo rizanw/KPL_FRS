@@ -149,11 +149,11 @@
                                     </tr>
                                     <tr>
                                         <th>DOSEN WALI</th>
-                                        <td>{{ mahasiswa['doswalnama'] | uppercase }}</td>
+                                        <td>{{ mahasiswa['doswal_nama'] | uppercase }}</td>
                                     </tr>
                                     <tr>
                                         <th>&nbsp;</th>
-                                        <td>NIP. {{ mahasiswa['doswalnip'] | uppercase }}</td>
+                                        <td>NIP. {{ mahasiswa['doswal_nip'] | uppercase }}</td>
                                     </tr>
                                 </table>
                             </td>

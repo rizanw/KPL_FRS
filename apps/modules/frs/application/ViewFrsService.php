@@ -17,21 +17,11 @@ class ViewFrsService
     public function execute($mahasiswaNrp)
     {
         $frs = $this->frsRepository->getFrsByNrp(new MahasiswaNrp($mahasiswaNrp), "0", "2019");
-//        $mahasiswa = $this->frsRepository->getMahasiswaByNrp($mahasiswaNrp);
 
         $response = new ViewFrsResponse();
 
         if ($frs) {
-            $response->addFrsResponse(
-                $frs->getId(),
-                $frs->getPeriode(),
-                $frs->getTahun(),
-                $frs->getIsDisetujui(),
-                $frs->getTotalSks()
-            );
-
             $mahasiswa = $frs->getMahasiswa();
-
             $response->addMahasiswaFrsResponse(
                 $mahasiswa->getNrp()->getNrp(),
                 $mahasiswa->getNama(),
@@ -40,38 +30,32 @@ class ViewFrsService
                 $mahasiswa->getAlamat()
             );
 
-//            $kelasTerpilih = $this->frsRepository->getKelasTerpilih($frs);
+            $kelasTerpilih = $this->frsRepository->getKelasTerpilih($frs);
+            if ($kelasTerpilih) {
+                foreach ($kelasTerpilih as $row) {
+                    $response->addKelas(
+                        $row->getId(),
+                        $row->getNamaMataKuliah(),
+                        $row->getKodeMataKuliah(),
+                        $row->getSks(),
+                        $row->getGrup(),
+                        $row->getPeriode(),
+                        $row->getTahun(),
+                        $row->getDosen()->getNama()
+                    );
+                }
+            }
 
-//            if ($kelasTerpilih) {
-//                foreach ($kelasTerpilih as $row) {
-//                    $response->tambahKelas(
-//                        $row->id_kelas,
-//                        $row->mata_kuliah,
-//                        $row->kode_matkul,
-//                        $row->sks,
-//                        $row->grup,
-//                        $row->kapasitas,
-//                        $row->dosen,
-//                        $row->ruang,
-//                        $row->Waktu_mulai,
-//                        $row->waktu_selesai,
-//                        $row->periode,
-//                        $row->tahun,
-//                        $row->nama_dosen
-//                    );
-//                }
-//            }
+            $response->addFrsResponse(
+                $frs->getId(),
+                $frs->getPeriode(),
+                $frs->getTahun(),
+                $frs->getIsDisetujui(),
+                $frs->getTotalSks(),
+                $frs->getBatasSks(),
+                $frs->getSisaSks()
+            );
         }
-
-//        if ($mahasiswa) {
-//            $response->addMahasiswaFrsResponse(
-//                $mahasiswa->getNrp(),
-//                $mahasiswa->getNama(),
-//                $mahasiswa->getIpk(),
-//                $mahasiswa->getDoswal(),
-//                $mahasiswa->getAlamat()
-//            );
-//        }
 
         return $response;
     }
