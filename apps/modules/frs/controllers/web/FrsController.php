@@ -146,15 +146,10 @@ class FrsController extends Controller
     {
         $viewFrsService = new ViewFrsService($this->frsRepository);
         $viewFrsResponse = $viewFrsService->execute($this->nrp);
+
         $this->view->setVar('frs', $viewFrsResponse->frs);
         $this->view->setVar('mahasiswa', $viewFrsResponse->mahasiswa);
-//        $this->view->setVar('kelas_terpilih', $viewFrsResponse->kelasTerpilih);
-//
-//        $totalSks = 0;
-//        foreach ($viewFrsResponse->kelasTerpilih as $item) {
-//            $totalSks = $totalSks + $item['sks'];
-//        }
-        $this->view->setVar('totalsks', $totalSks);
+        $this->view->setVar('kelas_terpilih', $viewFrsResponse->kelasTerpilih);
         return $this->view->pick('mahasiswa/cetak');
     }
 

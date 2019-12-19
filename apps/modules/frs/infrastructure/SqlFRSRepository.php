@@ -3,7 +3,6 @@
 namespace Kel5\FRS\Infrastructure;
 
 use Kel5\FRS\Domain\Model\FRSRepository;
-use Kel5\FRS\Domain\Model\KelasTerpilih;
 use Kel5\FRS\Domain\Model\Mahasiswa;
 use Kel5\FRS\Domain\Model\Dosen;
 use Kel5\FRS\Domain\Model\FRS;
@@ -271,33 +270,12 @@ class SqlFRSRepository implements FRSRepository
                 'id_kelas' => $kelas->getId(),
                 'nrp' => $frs->getMahasiswa()->getNrp()->getNrp()
             ]);
+
+            return true;
             }
         }
+        return false;
     }
-
-//    public function addKelasTerpilih(KelasTerpilih $kelasTerpilih)
-//    {
-//        $db = $this->di->getShared('db');
-//
-//        $sql = "SELECT * from kelasterpilih WHERE id_frs = :id_frs AND id_kelas = :id_kelas";
-//
-//        $res = $db->fetchOne($sql, \Phalcon\Db::FETCH_ASSOC, [
-//            'id_frs' => $kelasTerpilih->getIdFrs(),
-//            'id_kelas' => $kelasTerpilih->getIdKelas()
-//        ]);
-//
-//        if(!$res){
-//            $sql = "INSERT INTO kelasterpilih(id, id_frs, id_kelas, nrp)
-//                VALUES (:id, :id_frs, :id_kelas, :nrp)";
-//
-//            $db->query($sql, [
-//                'id' => Uuid::uuid4()->toString(),
-//                'id_frs' => $kelasTerpilih->getIdFrs(),
-//                'id_kelas' => $kelasTerpilih->getIdKelas(),
-//                'nrp' => $kelasTerpilih->getNrp()
-//            ]);
-//        }
-//    }
 
     public function getKelasTerpilih(FRS $frs)
     {
@@ -346,9 +324,14 @@ class SqlFRSRepository implements FRSRepository
 
         $sql = "DELETE FROM kelasterpilih WHERE id_kelas = :id_kelas";
 
-        $db->query($sql, [
+        $res = $db->query($sql, [
             'id_kelas' => $idKelas,
         ]);
+
+        if($res){
+            return true;
+        }
+        return false;
     }
 
     public function getKelasById($id) : ?Kelas
@@ -397,4 +380,16 @@ class SqlFRSRepository implements FRSRepository
         return $dosen;
     }
 
+    public function updateKelasKapasitas(Kelas $kelas, $isDrop)
+    {
+        $db =  $this->di->getShared('db');
+        $sql = "UPDATE kelas SET kapasitas = :kapasitas WHERE id = :id_kelas";
+
+        $res = $db->query($sql, [
+            'kapasitas' => $kelas->updateKapasitas($isDrop),
+            'id_kelas' => $kelas->getId()
+        ]);
+
+        return $res;
+    }
 }

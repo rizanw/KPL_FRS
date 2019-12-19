@@ -15,6 +15,11 @@ class DropKelasFRSService
 
     public function execute(DropKelasFRSRequest $request)
     {
-        $this->frsRepository->dropKelas($request->idKelas);
+        $res = $this->frsRepository->dropKelas($request->idKelas);
+        if($res){
+            $isDrop = true;
+            $kelas = $this->frsRepository->getKelasById($request->idKelas);
+            $this->frsRepository->updateKelasKapasitas($kelas, $isDrop);
+        }
     }
 }

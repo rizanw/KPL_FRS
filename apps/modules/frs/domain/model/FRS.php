@@ -41,7 +41,6 @@ class FRS
 
             $this->totalSks = $this->totalSks + $kelas->getSks();
             $this->sisaSks = $this->batasSks - $this->totalSks;
-            // todo: update kapasitas kelas
 
             return true;
         } else {
