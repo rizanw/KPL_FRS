@@ -24,12 +24,12 @@ interface FRSRepository
 
     public function ambilKelasUpmb() : array;
     public function ambilKelasDept() : array;
+    public function getPesertaKelas($idKelas);
 
     public function confirmFrs($idFrs);
     public function cancelFrs($idFrs);
 
     public function dropKelas(Kelas $kelas);
-
     public function addKelasTerpilih(FRS $frs, Kelas $kelas);
 
     public function updateKelasKapasitas(Kelas $kelas, $isDrop);

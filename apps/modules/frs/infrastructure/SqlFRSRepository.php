@@ -392,4 +392,11 @@ class SqlFRSRepository implements FRSRepository
 
         return $res;
     }
+
+    public function getPesertaKelas($idKelas)
+    {
+        $db =  $this->di->getShared('db');
+        $sql = "SELECT * FROM kelasterpilih WHERE id_kelas = :id_kelas";
+        
+    }
 }
