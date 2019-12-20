@@ -29,7 +29,7 @@ class FrsController extends Controller
     {
         $this->frsRepository = $this->di->getShared('sql_frs_repository');
 
-        $this->isDosen = False;
+        $this->isDosen = true;
         if ($this->isDosen) {
             $this->nip = "198410162008121002";
         } else {

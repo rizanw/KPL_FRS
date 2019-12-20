@@ -15,6 +15,12 @@ class ConfirmFRSService
 
     public function execute(ConfirmFRSRequest $request)
     {
-        $this->frsRepository->confirmFrs($request->idFrs);
+        $frs = $this->frsRepository->getFrsById($request->idFrs);
+        $isDisetujui = $frs->getIsDisetujui();
+        if($isDisetujui){
+            $this->frsRepository->cancelFrs($request->idFrs);
+        }else{
+            $this->frsRepository->confirmFrs($request->idFrs);
+        }
     }
 }

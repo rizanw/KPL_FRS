@@ -16,21 +16,41 @@ class Kelas
     private $periode;
     private $tahun;
     private $kapasitas;
-
     private $is_upmb;
+
+    private $peserta;
+
+    public function addPeserta(MahasiswaNrp $mahasiswaNrp, Mahasiswa $mahasiswa)
+    {
+        $exist = false;
+        foreach ($this->peserta as $existingPeserta) {
+            if ($existingPeserta->getNrp()->equals($mahasiswaNrp->getNrp())) {
+                $exist = true;
+            }
+        }
+
+        if (!$exist) {
+            array_push($this->peserta, $mahasiswa);
+
+            return true;
+        } else {
+
+            return "kelas sudah diambil";
+        }
+    }
 
     public function updateKapasitas($drop)
     {
-        if($drop){
+        if ($drop) {
             return $this->kapasitas + 1;
-        }else{
+        } else {
             return $this->kapasitas - 1;
         }
     }
 
     public function equals(Kelas $kelas)
     {
-        if($this->id == $kelas->id){
+        if ($this->id == $kelas->id) {
             return true;
         }
         return false;

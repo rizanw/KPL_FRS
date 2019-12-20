@@ -57,6 +57,7 @@
                 <th>NO</th>
                 <th>NRP</th>
                 <th>Nama</th>
+                <th>Aksi</th>
             </tr>
             </thead>
             <tbody>
@@ -65,23 +66,9 @@
                     <td>{{ loop.index }}</td>
                     <td>{{ anakWali['nrp'] }}</td>
                     <td>{{ anakWali['name'] }}</td>
+                    <td><a href="/frs/frs/frs/{{ anakWali['nrp'] }}">Lihat FRS</a></td>
                 </tr>
             {% endfor %}
-{#            <tr>#}
-{#                <td> 1</td>#}
-{#                <td> 05111640000043</td>#}
-{#                <td>MUHAMMAD ARRAFI</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <td> 2</td>#}
-{#                <td> 05111740000082</td>#}
-{#                <td>INDIRA NURSYAMSINA HAZIMI</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <td> 3</td>#}
-{#                <td> 05111740000183</td>#}
-{#                <td>RIZKY ANDRE WIBISONO</td>#}
-{#            </tr>#}
             </tbody>
         </table>
     </div>

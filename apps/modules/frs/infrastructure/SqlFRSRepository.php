@@ -137,7 +137,7 @@ class SqlFRSRepository implements FRSRepository
     public function getAnakWaliByNip($nip)
     {
         $db = $this->di->getShared('db');
-        $sql = "SELECT * FROM mahasiswa WHERE doswal = :nip";
+        $sql = "SELECT * FROM mahasiswa WHERE id_dosen = :nip";
         $res = $db->fetchAll($sql, \Phalcon\Db::FETCH_ASSOC, [
             'nip' => $nip
         ]);
@@ -157,7 +157,7 @@ class SqlFRSRepository implements FRSRepository
                 );
 
                 $mahasiswa = new Mahasiswa(
-                    $r['nrp'],
+                    new MahasiswaNrp($r['nrp']),
                     $r['nama'],
                     $r['IPK'],
                     $doswal,
@@ -300,7 +300,7 @@ class SqlFRSRepository implements FRSRepository
     {
         $db =  $this->di->getShared('db');
 
-        $sql = "UPDATE frs SET is_setuju = 1 WHERE id_frs = :id_frs";
+        $sql = "UPDATE frs SET is_setuju = 1 WHERE id = :id_frs";
 
         $db->query($sql, [
             'id_frs' => $idFrs,
@@ -311,7 +311,7 @@ class SqlFRSRepository implements FRSRepository
     {
         $db =  $this->di->getShared('db');
 
-        $sql = "UPDATE frs SET is_setuju = 0 WHERE id_frs = :id_frs";
+        $sql = "UPDATE frs SET is_setuju = 0 WHERE id = :id_frs";
 
         $db->query($sql, [
             'id_frs' => $idFrs,
@@ -391,5 +391,12 @@ class SqlFRSRepository implements FRSRepository
         ]);
 
         return $res;
+    }
+
+    public function getPesertaKelas($idKelas)
+    {
+        $db =  $this->di->getShared('db');
+        $sql = "SELECT * FROM kelasterpilih WHERE id_kelas = :id_kelas";
+        
     }
 }
