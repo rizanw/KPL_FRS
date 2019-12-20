@@ -19,49 +19,34 @@ class ViewPesertaKelasService
         $this->frsRepository = $frsRepository;
     }
 
-    public function executeDept()
+    public function execute($idKelas)
     {
-        $kelas = $this->frsRepository->getPesertaKelas($idKelas);
-        $response = new ViewKelasResponse();
+        $kelas = $this->frsRepository->getKelasById($idKelas);
+        $peserta = $this->frsRepository->getPesertaKelas($idKelas);
+        $response = new ViewPesertaKelasResponse();
 
-        if($kelas) {
-            foreach ($kelas as $row){
-                $response->tambahKelas(
-                    $row->getId(),
-                    $row->getNamaMataKuliah(),
-                    $row->getKodeMataKuliah(),
-                    $row->getSks(),
-                    $row->getGrup(),
-                    $row->getKapasitas(),
-                    $row->getDosen()->getNama()
+        $response->addKelas(
+            $kelas->getNamaMataKuliah(),
+            $kelas->getKodeMataKuliah(),
+            $kelas->getSks(),
+            $kelas->getGrup(),
+            $kelas->getRuang(),
+            $kelas->getKapasitas(),
+            $kelas->getDosen()->getNama(),
+            $kelas->getHari(),
+            $kelas->getWaktuMulai(),
+            $kelas->getWaktuSelesai()
+        );
+
+        if($peserta) {
+            foreach ($peserta as $row){
+                $response->tambahPeserta(
+                    $row->getNrp()->getNrp(),
+                    $row->getNama()
                 );
             }
         }
 
         return $response;
     }
-
-    public function executeUpmb()
-    {
-        $kelas = $this->frsRepository->ambilKelasUpmb();
-        $response = new ViewKelasResponse();
-
-        if($kelas) {
-            foreach ($kelas as $row){
-                $response->tambahKelas(
-                    $row->getId(),
-                    $row->getNamaMataKuliah(),
-                    $row->getKodeMataKuliah(),
-                    $row->getSks(),
-                    $row->getGrup(),
-                    $row->getKapasitas(),
-                    $row->getDosen()->getNama()
-                );
-            }
-        }
-
-        return $response;
-    }
-
-
 }
