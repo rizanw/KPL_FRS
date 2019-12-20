@@ -25,7 +25,6 @@ interface FRSRepository
     public function ambilKelasUpmb() : array;
     public function ambilKelasDept() : array;
     public function getPesertaKelas($idKelas);
-
     public function confirmFrs($idFrs);
     public function cancelFrs($idFrs);
 
