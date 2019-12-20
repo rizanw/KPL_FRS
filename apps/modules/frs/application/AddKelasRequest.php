@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Kel5\FRS\Application;
 
 class AddKelasRequest

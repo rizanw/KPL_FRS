@@ -41,9 +41,9 @@
 {% endblock %}
 
 {% block navbar %}
-<a class="nav-link" href="/">Home</a>
-<a class="nav-link active" href="frs">Daftar Anak Wali</a>
-<a class="nav-link" href="kelas">Daftar Peserta Kelas</a>
+<a class="nav-link" href="../index">Home</a>
+<a class="nav-link active" href="../frs">Daftar Anak Wali</a>
+<a class="nav-link" href="../kelas">Daftar Peserta Kelas</a>
 {% endblock %}
 
 {% block content %}
@@ -95,15 +95,15 @@
                 <td>{{ mahasiswa['nama'] }}</td>
                 <td><strong>Dosen Wali</strong></td>
                 <td align="center"><strong>:</strong></td>
-                <td>{{ mahasiswa['doswalnama'] }}</td>
+                <td>{{ mahasiswa['doswal_nama'] }}</td>
             </tr>
             <tr>
                 <td><strong>IPK</strong></td>
                 <td align="center"><strong>:</strong></td>
                 <td> {{ mahasiswa['ipk'] }} </td>
-                <td><strong>Batas Sks</strong></td>
+                <td><strong>Batas / Sisa</strong></td>
                 <td align="center"><strong>:</strong></td>
-                <td>{{ batassks }}</td>
+                <td>{{ frs['batas_sks'] }} / {{ frs['sisa_sks'] }} SKS</td>
             </tr>
         </table>
     </div>
@@ -123,7 +123,7 @@
         {% for kelas in kelas_terpilih %}
             <tr valign="top" class=" AlternateBG ">
                 <td>{{ kelas['kode_matkul'] | uppercase}}</td>
-                <td>{{ kelas['mata_kuliah']}}</td>
+                <td>{{ kelas['nama_matkul']}}</td>
                 <td align="center">{{ kelas['sks']}}</td>
                 <td align="center">{{ kelas['grup']}}</td>
                 <td>{{ kelas['nama_dosen']}}</td>
@@ -132,25 +132,30 @@
         {% endfor %}
             <tr class="bg-dark text-white">
                 <td colspan="2" align="right"><strong>Total SKS</strong></td>
-                <td align="center"><strong>{{totalsks}}</strong></td>
+                <td align="center"><strong>{{ frs['total_sks'] }}</strong></td>
                 <td align="center" colspan="3">&nbsp;</td>
             </tr>
         </tbody>
     </table>
-    <p class="text-left">Keterangan : </p>
-    <table class="mb-2">
-        <tr>
-            <td border="2" bgcolor="#FF3A3A">
-                <div class="pt-2 pl-4 pr-4"></div>
-            </td>
-            <td>mahasiswa mengambil mata kuliah semester atas</td>
-        </tr>
-    </table>
+{#    <p class="text-left">Keterangan : </p>#}
+{#    <table class="mb-2">#}
+{#        <tr>#}
+{#            <td border="2" bgcolor="#FF3A3A">#}
+{#                <div class="pt-2 pl-4 pr-4"></div>#}
+{#            </td>#}
+{#            <td>mahasiswa mengambil mata kuliah semester atas</td>#}
+{#        </tr>#}
+{#    </table>#}
     {% if frs['is_disetujui'] is sameas("1") %}
     <table class="table mb-5">
         <tr height="30" bgcolor="#C6EFFF">
             <td align="center" colspan="6" style="border:1px solid #0000FF">
                 <font color="#0000FF"><strong>PERSETUJUAN TELAH DILAKUKAN</strong></font>
+                <form method="post" action="{{ url("frs/frs/frs/") ~ mahasiswa['nrp'] }}">
+                    <input type="hidden" name="setuju" value="1">
+                    <input type="hidden" name="id_frs" value="{{ frs['id'] }}">
+                    <button type="submit">SETUJUI FRS</button>
+                </form>
             </td>
         </tr>
     </table>
