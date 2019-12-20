@@ -41,9 +41,9 @@
 {% endblock %}
 
 {% block navbar %}
-<a class="nav-link" href="/">Home</a>
-<a class="nav-link active" href="frs">Daftar Anak Wali</a>
-<a class="nav-link" href="kelas">Daftar Peserta Kelas</a>
+<a class="nav-link" href="../index">Home</a>
+<a class="nav-link active" href="../frs">Daftar Anak Wali</a>
+<a class="nav-link" href="../kelas">Daftar Peserta Kelas</a>
 {% endblock %}
 
 {% block content %}

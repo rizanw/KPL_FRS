@@ -41,9 +41,9 @@
 {% endblock %}
 
 {% block navbar %}
-<a class="nav-link" href="frs/frs/">Home</a>
-<a class="nav-link active" href="frs/frs/anakwali">Daftar Anak Wali</a>
-<a class="nav-link" href="frs/frs/kelas">Daftar Peserta Kelas</a>
+<a class="nav-link" href="index">Home</a>
+<a class="nav-link active" href="anakwali">Daftar Anak Wali</a>
+<a class="nav-link" href="kelas">Daftar Peserta Kelas</a>
 {% endblock %}
 
 {% block content %}
@@ -66,7 +66,7 @@
                     <td>{{ loop.index }}</td>
                     <td>{{ anakWali['nrp'] }}</td>
                     <td>{{ anakWali['name'] }}</td>
-                    <td><a href="/frs/frs/frs/{{ anakWali['nrp'] }}">Lihat FRS</a></td>
+                    <td><a href="frs/{{ anakWali['nrp'] }}">Lihat FRS</a></td>
                 </tr>
             {% endfor %}
             </tbody>
