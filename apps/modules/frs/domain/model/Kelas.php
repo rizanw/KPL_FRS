@@ -11,6 +11,7 @@ class Kelas
     private $grup;
     private $dosen;
     private $ruang;
+    private $hari;
     private $waktuMulai;
     private $waktuSelesai;
     private $periode;
@@ -56,7 +57,7 @@ class Kelas
         return false;
     }
 
-    public function __construct($idKelas, $namaMatkul, $kodeMatkul, $sks, $grup, $kapasitas, $ruang, $waktuMulai, $waktuSelesai, $periode, $tahun, Dosen $dosen)
+    public function __construct($idKelas, $namaMatkul, $kodeMatkul, $sks, $grup, $kapasitas, $ruang, $hari, $waktuMulai, $waktuSelesai, $periode, $tahun, Dosen $dosen)
     {
         $this->id = $idKelas;
         $this->namaMataKuliah = $namaMatkul;
@@ -65,6 +66,7 @@ class Kelas
         $this->grup = $grup;
         $this->dosen = $dosen;
         $this->ruang = $ruang;
+        $hari->hari = $hari;
         $this->waktuMulai = $waktuMulai;
         $this->waktuSelesai = $waktuSelesai;
         $this->periode = $periode;
@@ -167,6 +169,14 @@ class Kelas
     public function getKapasitas()
     {
         return $this->kapasitas;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHari()
+    {
+        return $this->hari;
     }
 
 }

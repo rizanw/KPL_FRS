@@ -199,6 +199,7 @@ class SqlFRSRepository implements FRSRepository
                 $row['grup'],
                 $row['kapasitas'],
                 $row['ruang'],
+                $row['hari'],
                 $row['waktu_mulai'],
                 $row['waktu_selesai'],
                 $row['periode'],
@@ -238,6 +239,7 @@ class SqlFRSRepository implements FRSRepository
                 $row['grup'],
                 $row['kapasitas'],
                 $row['ruang'],
+                $row['hari'],
                 $row['waktu_mulai'],
                 $row['waktu_selesai'],
                 $row['periode'],
@@ -353,6 +355,7 @@ class SqlFRSRepository implements FRSRepository
             $res['grup'],
             $res['kapasitas'],
             $res['ruang'],
+            $res['hari'],
             $res['waktu_mulai'],
             $res['waktu_selesai'],
             $res['periode'],
@@ -397,6 +400,15 @@ class SqlFRSRepository implements FRSRepository
     {
         $db =  $this->di->getShared('db');
         $sql = "SELECT * FROM kelasterpilih WHERE id_kelas = :id_kelas";
-        
+        $res = $db->fetchAll($sql, \Phalcon\Db::FETCH_ASSOC, [
+            'id_kelas' => $idKelas
+        ]);
+        $pesertaKelas = array();
+        foreach ($res as $row){
+            $mahasiswaNrp = new MahasiswaNrp($row['nrp']);
+            $mahasiswa = $this->getMahasiswaByNrp($mahasiswaNrp);
+            array_push($pesertaKelas, $mahasiswa);
+        }
+        return $pesertaKelas;
     }
 }

@@ -10,8 +10,10 @@ use Kel5\FRS\Application\ConfirmFRSService;
 use Kel5\FRS\Application\DropKelasFRSRequest;
 use Kel5\FRS\Application\DropKelasFRSService;
 use Kel5\FRS\Application\ViewAnakWaliService;
+use Kel5\FRS\Application\ViewKelasResponse;
 use Kel5\FRS\Application\ViewKelasService;
 use Kel5\FRS\Application\ViewFrsService;
+use Kel5\FRS\Application\ViewPesertaKelasService;
 use Phalcon\Mvc\Controller;
 
 /**
@@ -173,8 +175,23 @@ class FrsController extends Controller
     /**
      * @return \Phalcon\Mvc\View
      */
-    public function kelasAction()
+    public function kelasAction($idKelas = null)
     {
+        if($idKelas){
+            $viewPesertaKelasService = new ViewPesertaKelasService($this->frsRepository);
+            $response = $viewPesertaKelasService->execute($idKelas);
+
+            $this->view->setVar('peserta_kelas', $response->peserta);
+            $this->view->setVar('kelas', $response->kelas);
+            return $this->view->pick('dosen/kelas_peserta');
+        }
+
+        $service = new ViewKelasService($this->frsRepository);
+        $responseKelasDept = $service->executeDept();
+        $responseKelasUpmb = $service->executeUpmb();
+        $this->view->setVar('dept', $responseKelasDept->kelas);
+        $this->view->setVar('upmb', $responseKelasUpmb->kelas);
+
         return $this->view->pick('dosen/kelas');
     }
 }
