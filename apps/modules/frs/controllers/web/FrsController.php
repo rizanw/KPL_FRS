@@ -5,14 +5,11 @@ namespace Kel5\FRS\Controllers\Web;
 
 use Kel5\FRS\Application\AddKelasRequest;
 use Kel5\FRS\Application\AddKelasService;
-use Kel5\FRS\Application\MenampilkanKelasDosenService;
-
 use Kel5\FRS\Application\ConfirmFRSRequest;
 use Kel5\FRS\Application\ConfirmFRSService;
 use Kel5\FRS\Application\DropKelasFRSRequest;
 use Kel5\FRS\Application\DropKelasFRSService;
 use Kel5\FRS\Application\ViewAnakWaliService;
-use Kel5\FRS\Application\ViewKelasResponse;
 use Kel5\FRS\Application\ViewKelasService;
 use Kel5\FRS\Application\ViewFrsService;
 use Kel5\FRS\Application\ViewPesertaKelasService;
@@ -28,10 +25,12 @@ class FrsController extends Controller
     private $nip;
     private $isDosen;
     private $frsRepository;
+
     public function onConstruct()
     {
         $this->frsRepository = $this->di->getShared('sql_frs_repository');
-        $this->isDosen = true;
+
+        $this->isDosen = false; // ganti true untuk mode dosen, dan sebaliknya.
         if ($this->isDosen) {
             $this->nip = "198410162008121002";
         } else {
@@ -75,23 +74,6 @@ class FrsController extends Controller
             $idKelas = $this->request->getPost('id_kelas');
             $idFrs = $this->request->getPost('id_frs');
             $nrp = $this->request->getPost('nrp');
-
-            $request = new AddKelasRequest(
-                $idFrs,
-                $idKelas,
-                $nrp
-            );
-
-            $service = new AddKelasService($this->frsRepository);
-            $res = $service->execute($request);
-
-//            if($res){
-//                $this->flashSession->success("<h4 class=\"alert-heading\">Berhasil Diambil!</h4>");
-//            }else{
-//                $this->flashSession->error("<h4 class=\"alert-heading\">Gagal Diambil!</h4> <a> kelas penuh</a>.");
-//            }
-
-
             $setujuiFrs = $this->request->getPost('setuju');
             $dropKelas = $this->request->getPost('dodrop');
 
@@ -124,7 +106,6 @@ class FrsController extends Controller
                 $service = new ConfirmFRSService($this->frsRepository);
                 $service->execute($request);
             }
-
         }
 
         /*
@@ -180,14 +161,16 @@ class FrsController extends Controller
      */
     public function anakWaliAction()
     {
+        if ($this->isDosen) {
+            $viewAnakWaliService = new ViewAnakWaliService($this->frsRepository);
+            $response = $viewAnakWaliService->execute($this->nip);
 
-        $viewAnakWaliService = new ViewAnakWaliService($this->frsRepository);
-        $response = $viewAnakWaliService->execute($this->nip);
-        $this->view->setVar('anakWalis', $response->anakWalis);
-        return $this->view->pick('dosen/daftar_anak_wali');
-
+            $this->view->setVar('anakWalis', $response->anakWalis);
+            return $this->view->pick('dosen/daftar_anak_wali');
+        }
+        return "403";
     }
-  
+
     /**
      * @return \Phalcon\Mvc\View
      */
@@ -210,5 +193,4 @@ class FrsController extends Controller
 
         return $this->view->pick('dosen/kelas');
     }
-  
 }

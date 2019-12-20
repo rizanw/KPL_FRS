@@ -66,7 +66,7 @@ class Kelas
         $this->grup = $grup;
         $this->dosen = $dosen;
         $this->ruang = $ruang;
-        $hari->hari = $hari;
+        $this->hari = $hari;
         $this->waktuMulai = $waktuMulai;
         $this->waktuSelesai = $waktuSelesai;
         $this->periode = $periode;

@@ -74,7 +74,7 @@ class SqlFRSRepository implements FRSRepository
             return $frs;
         } else {
             $id = Uuid::uuid4()->toString();
-            $sql = "INSERT INTO frs(id_frs, nrp, is_setuju, periode, tahun)
+            $sql = "INSERT INTO frs(id, nrp, is_setuju, periode, tahun)
                         VALUES(:id, :nrp, :is_setuju, :periode, :tahun)";
 
             $newFrsQuery = $db->query($sql, [
