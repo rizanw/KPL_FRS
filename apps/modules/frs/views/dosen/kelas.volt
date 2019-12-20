@@ -47,46 +47,44 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid text-center mt-3 mb-3 pt-2">
-        <h2>Daftar Kelas Mengajar</h2>
-
-    </div>
-    <div class="container">
-        <table class="table table-bordered text-hover w-auto mb-3" style="margin: auto;">
-            <thead class="thead-light">
-            <h5>Dosen : Dr. Radityo Anggoro, S.Kom., M.E</h5>
-            <tr class="text-center">
-                <th >Kode</th>
-                <th >Mata Kuliah</th>
-                <th >SKS</th>
-                <th >Kelas </th>
-                <th >Tempat </th>
-                <th >Waktu </th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-
-            {% for row in kelas  %}
-            <tr>
-                <td>{{row['kode_matkul']}}</td>
-                <td>{{row['mata_kuliah']}}</td>
-                <td>{{row['sks']}}</td>
-                <td>{{row['ruang']}}</td>
-                <td>{{row['Waktu_mulai']}} - {{row['waktu_selesai']}}</td>
-                <td>
-                    <form method="post" action="{{ url('frs/frs/pesertakelas')}}">
-                        <input type="hidden" name="id_kelas" value="{{row['id_kelas']}}">
-                        <button type="submit" class="btn btn-small btn-outline-info">Lihat Peserta</button>
-                    </form>
-                </td>
-            </tr>
-           {% endfor %}
-
-            </tbody>
-        </table>
-    </div>
-
+    <form method="post" action="{{ url('frs/frs/kelas') }}">
+        <div class="form-group">
+            <label for="matkulUMPB">Mata Kuliah UPMB</label>
+            <div class="input-group">
+                <div>
+                    <input type="hidden" name="nrp" value="{{ mahasiswa['nrp'] }}">
+                    <input type="hidden" name="id_frs" value="{{ frs['id'] }}">
+                </div>
+                <select class="form-control" id="matkulUMPB" name="id_kelas">
+                    {% for kelas in upmb %}
+                        <option value="{{kelas['id']}}">
+                            {{kelas['kode_matkul']}} | {{kelas['mata_kuliah']}} | {{kelas['sks']}} | {{kelas['grup']}} | {{kelas['kapasitas']}} | {{kelas['dosen_nama']}}
+                        </option>
+                    {% endfor %}
+                </select>
+                <button type="button" class="btn btn-primary ml-2" onclick="location.href='kelas/'+$('#matkulUMPB option:selected').val()">Lihat Kelas</button>
+            </div>
+        </div>
+    </form>
+    <form method="post" action="{{ url('frs/frs/kelas') }}">
+        <div class="form-group">
+            <label for="matkulUMPB">Mata Kuliah Departemen</label>
+            <div class="input-group">
+                <div>
+                    <input type="hidden" name="nrp" value="{{ mahasiswa['nrp'] }}">
+                    <input type="hidden" name="id_frs" value="{{ frs['id'] }}">
+                </div>
+                <select class="form-control" id="matkulDept" name="id_kelas">
+                    {% for kelas in dept %}
+                        <option value="{{kelas['id']}}">
+                            {{kelas['kode_matkul']}} | {{kelas['mata_kuliah']}} | {{kelas['sks']}} | {{kelas['grup']}} | {{kelas['kapasitas']}} | {{kelas['dosen_nama']}}
+                        </option>
+                    {% endfor %}
+                </select>
+                <button type="button" class="btn btn-primary ml-2" onclick="location.href='kelas/'+$('#matkulDept option:selected').val()">Lihat Kelas</button>
+            </div>
+        </div>
+    </form>
 {% endblock %}
 
 {% block scripts %}

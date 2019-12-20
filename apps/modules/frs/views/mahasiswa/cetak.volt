@@ -149,11 +149,11 @@
                                     </tr>
                                     <tr>
                                         <th>DOSEN WALI</th>
-                                        <td>{{ mahasiswa['doswalnama'] | uppercase }}</td>
+                                        <td>{{ mahasiswa['doswal_nama'] | uppercase }}</td>
                                     </tr>
                                     <tr>
                                         <th>&nbsp;</th>
-                                        <td>NIP. {{ mahasiswa['doswalnip'] | uppercase }}</td>
+                                        <td>NIP. {{ mahasiswa['doswal_nip'] | uppercase }}</td>
                                     </tr>
                                 </table>
                             </td>
@@ -197,14 +197,14 @@
                 <tr>
                     <td align="center">{{ loop.index }}</td>
                     <td align="center">{{ kelas['kode_matkul'] | uppercase }}</td>
-                    <td>{{ kelas['mata_kuliah']  | uppercase }}</td>
+                    <td>{{ kelas['nama_matkul']  | uppercase }}</td>
                     <td align="center">{{ kelas['sks']  | uppercase }}</td>
                     <td align="center">{{ kelas['grup']  | uppercase }}</td>
                     <td align="center">&nbsp;</td>
                 </tr>
             {% endfor %}
                 <th colspan="3">JUMLAH SKS</th>
-                <th align="center">{{totalsks}}</th>
+                <th align="center">{{ frs['total_sks'] }}</th>
                 <th>&nbsp;</th>
                 <th>&nbsp;</th>
             </tr>
