@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 19, 2019 at 04:45 PM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
+-- Host: localhost
+-- Generation Time: Dec 20, 2019 at 03:06 PM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `frs`
+-- Database: `kpl_frs`
 --
 
 -- --------------------------------------------------------
@@ -38,7 +38,6 @@ CREATE TABLE `dosen` (
 --
 
 INSERT INTO `dosen` (`nip`, `nama`) VALUES
-('', ''),
 ('194806191973011001', 'Prof. Ir. Supeno Djanali M.Sc., Ph.D.'),
 ('194908231976032001', 'Prof. Ir. Handayani Tjandrasa M.Sc., Ph.D.'),
 ('195701011983031004', 'Ir. F. X. Arunanto M.Sc.'),
@@ -85,7 +84,7 @@ INSERT INTO `dosen` (`nip`, `nama`) VALUES
 --
 
 CREATE TABLE `frs` (
-  `id_frs` varchar(255) NOT NULL,
+  `id` varchar(255) NOT NULL,
   `nrp` char(14) NOT NULL,
   `is_setuju` tinyint(1) DEFAULT NULL,
   `periode` tinyint(1) DEFAULT NULL,
@@ -96,12 +95,10 @@ CREATE TABLE `frs` (
 -- Dumping data for table `frs`
 --
 
-INSERT INTO `frs` (`id_frs`, `nrp`, `is_setuju`, `periode`, `tahun`) VALUES
-('321ac695-acca-4bf0-bde1-04dc4815f49c', '}0511174000018', 0, 0, 2019),
-('45c9b5b0-5475-462e-b3f2-ee06af1bdab7', 'kelas', 0, 0, 2019),
-('62f67f67', '05111740000183', 0, 1, 2019),
-('963f154c-9626-4d1c-99a3-581c79624f44', '05111740000183', 0, 0, 2019),
-('a3b83e15-641b-484c-adca-3e69a2e99a33', 'frs', 0, 0, 2019);
+INSERT INTO `frs` (`id`, `nrp`, `is_setuju`, `periode`, `tahun`) VALUES
+('096ac926-71f3-42f0-9c21-a80c3e96cd85', '05111640000002', 0, 0, 2019),
+('481344e7-49ea-4243-b5ad-2a7c37bfe726', '05111640000003', 0, 0, 2019),
+('963f154c-9626-4d1c-99a3-581c79624f44', '05111740000183', 0, 0, 2019);
 
 -- --------------------------------------------------------
 
@@ -110,15 +107,15 @@ INSERT INTO `frs` (`id_frs`, `nrp`, `is_setuju`, `periode`, `tahun`) VALUES
 --
 
 CREATE TABLE `kelas` (
-  `id_kelas` varchar(8) NOT NULL,
+  `id` varchar(8) NOT NULL,
   `mata_kuliah` varchar(32) NOT NULL,
   `kode_matkul` varchar(8) NOT NULL,
   `sks` int(11) NOT NULL,
   `grup` varchar(4) NOT NULL,
   `kapasitas` int(11) DEFAULT NULL,
-  `dosen` char(18) NOT NULL,
+  `nip_dosen` char(18) NOT NULL,
   `ruang` varchar(16) DEFAULT NULL,
-  `Waktu_mulai` time DEFAULT NULL,
+  `waktu_mulai` time DEFAULT NULL,
   `waktu_selesai` time DEFAULT NULL,
   `periode` tinyint(1) DEFAULT NULL,
   `tahun` year(4) DEFAULT NULL,
@@ -130,13 +127,13 @@ CREATE TABLE `kelas` (
 -- Dumping data for table `kelas`
 --
 
-INSERT INTO `kelas` (`id_kelas`, `mata_kuliah`, `kode_matkul`, `sks`, `grup`, `kapasitas`, `dosen`, `ruang`, `Waktu_mulai`, `waktu_selesai`, `periode`, `tahun`, `is_upmb`, `hari`) VALUES
-('UP190001', 'Fisika', 'FIS18497', 3, '12', 30, '198410162008121002', 'IF-103', '07:30:00', '10:30:00', 0, 2019, 1, NULL),
-('UP190002', 'Teknopreneur', 'Tek18470', 3, '23', 30, '198410162008121002', 'IF-103', '07:30:00', '10:30:00', 0, 2019, 1, NULL),
+INSERT INTO `kelas` (`id`, `mata_kuliah`, `kode_matkul`, `sks`, `grup`, `kapasitas`, `nip_dosen`, `ruang`, `waktu_mulai`, `waktu_selesai`, `periode`, `tahun`, `is_upmb`, `hari`) VALUES
+('UP190001', 'Fisika', 'FIS18497', 3, '12', 29, '198410162008121002', 'IF-103', '07:30:00', '10:30:00', 0, 2019, 1, NULL),
+('UP190002', 'Teknopreneur', 'Tek18470', 3, '23', 29, '198410162008121002', 'IF-103', '07:30:00', '10:30:00', 0, 2019, 1, NULL),
 ('', '', '', 0, '', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('KIF19001', 'Pra-TA', 'IF184702', 3, '_', 30, '198410162008121002', '_', '07:30:00', '10:00:00', 0, 2019, 0, 'JUMAT'),
+('KIF19001', 'Pra-TA', 'IF184702', 3, '_', 29, '198410162008121002', '_', '07:30:00', '10:00:00', 0, 2019, 0, 'JUMAT'),
 ('', '', '', 0, '', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('KIF19002', 'Dasar Pemrograman', 'IF184101', 4, 'A', 30, '195701011983031004', 'IF-107a', '10:00:00', '12:30:00', 0, 2019, 0, 'SELASA'),
+('KIF19002', 'Dasar Pemrograman', 'IF184101', 4, 'A', 31, '195701011983031004', 'IF-107a', '10:00:00', '12:30:00', 0, 2019, 0, 'SELASA'),
 ('KIF19003', 'Dasar Pemrograman', 'IF184101', 4, 'B', 30, '195701011983031004', 'IF-107b', '13:00:00', '15:30:00', 0, 2019, 0, 'SELASA'),
 ('KIF19004', 'Dasar Pemrograman', 'IF184101', 4, 'C', 30, '196505181992031003', 'IF-107a', '10:00:00', '12:30:00', 0, 2019, 0, 'RABU'),
 ('KIF19005', 'Dasar Pemrograman', 'IF184101', 4, 'D', 30, '198608232015041004', 'IF-107b', '10:00:00', '12:30:00', 0, 2019, 0, 'RABU'),
@@ -252,7 +249,7 @@ INSERT INTO `kelas` (`id_kelas`, `mata_kuliah`, `kode_matkul`, `sks`, `grup`, `k
 --
 
 CREATE TABLE `kelasterpilih` (
-  `id` varchar(8) NOT NULL,
+  `id` varchar(255) NOT NULL,
   `id_frs` varchar(255) DEFAULT NULL,
   `id_kelas` varchar(8) DEFAULT NULL,
   `nrp` varchar(14) NOT NULL
@@ -263,8 +260,8 @@ CREATE TABLE `kelasterpilih` (
 --
 
 INSERT INTO `kelasterpilih` (`id`, `id_frs`, `id_kelas`, `nrp`) VALUES
-('5b883a7d', '963f154c-9626-4d1c-99a3-581c79624f44', 'UP190002', '05111740000183'),
-('bcaed5b6', '963f154c-9626-4d1c-99a3-581c79624f44', 'KIF19002', '05111740000183');
+('1cf22690-19e1-43b2-a11c-d0e5f076d70b', '963f154c-9626-4d1c-99a3-581c79624f44', 'KIF19001', '05111740000183'),
+('dc840a6c-c06d-4022-9e01-1e1d072dd3a2', '963f154c-9626-4d1c-99a3-581c79624f44', 'UP190001', '05111740000183');
 
 -- --------------------------------------------------------
 
@@ -275,8 +272,8 @@ INSERT INTO `kelasterpilih` (`id`, `id_frs`, `id_kelas`, `nrp`) VALUES
 CREATE TABLE `mahasiswa` (
   `nrp` char(14) NOT NULL,
   `nama` varchar(31) NOT NULL,
-  `IPK` float NOT NULL,
-  `doswal` char(18) DEFAULT NULL,
+  `ipk` float NOT NULL,
+  `id_dosen` char(18) DEFAULT NULL,
   `alamat` varchar(225) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -284,7 +281,7 @@ CREATE TABLE `mahasiswa` (
 -- Dumping data for table `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`nrp`, `nama`, `IPK`, `doswal`, `alamat`) VALUES
+INSERT INTO `mahasiswa` (`nrp`, `nama`, `ipk`, `id_dosen`, `alamat`) VALUES
 ('05111640000002', 'Jimi', 4, '198410162008121002', NULL),
 ('05111640000003', 'Hazimi', 4, '198410162008121002', NULL),
 ('05111640000043', 'Arrafi', 3, '198410162008121002', NULL),
@@ -304,7 +301,7 @@ ALTER TABLE `dosen`
 -- Indexes for table `frs`
 --
 ALTER TABLE `frs`
-  ADD PRIMARY KEY (`id_frs`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `kelasterpilih`
