@@ -1,10 +1,8 @@
 <?php
 
-
 namespace Kel5\FRS\Application;
 
 use Kel5\FRS\Domain\Model\FRSRepository;
-use Kel5\FRS\Domain\Model\KelasTerpilih;
 
 class AddKelasService
 {
@@ -17,12 +15,13 @@ class AddKelasService
 
     public function execute(AddKelasRequest $request)
     {
-        $kelasTerpilih = new KelasTerpilih(
-            $request->idFrs,
-            $request->idKelas,
-            $request->nrp
-        );
+        $frs = $this->frsRepository->getFrsById($request->idFrs);
+        $kelas = $this->frsRepository->getKelasById($request->idKelas);
 
-        $this->frsRepository->addKelasTerpilih($kelasTerpilih);
+        $res = $this->frsRepository->addKelasTerpilih($frs, $kelas);
+        if($res){
+            $isDrop = false;
+            $this->frsRepository->updateKelasKapasitas($kelas, $isDrop);
+        }
     }
 }

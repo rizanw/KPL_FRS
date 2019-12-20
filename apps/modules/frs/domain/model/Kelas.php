@@ -19,9 +19,13 @@ class Kelas
 
     private $is_upmb;
 
-    public function updateKapasitas()
+    public function updateKapasitas($drop)
     {
-        return $this->kapasitas - 1;
+        if($drop){
+            return $this->kapasitas + 1;
+        }else{
+            return $this->kapasitas - 1;
+        }
     }
 
     public function equals(Kelas $kelas)

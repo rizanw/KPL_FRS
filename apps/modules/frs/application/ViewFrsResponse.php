@@ -17,14 +17,16 @@ class ViewFrsResponse
         $this->kelasTerpilih = array();
     }
 
-    public function addFrsResponse($id, $periode, $tahun, $isDisetujui, $totalSks)
+    public function addFrsResponse($id, $periode, $tahun, $isDisetujui, $totalSks, $batasSks, $sisaSks)
     {
         $this->frs = array(
             'id' => $id,
             'periode' => $periode,
             'tahun' => $tahun,
             'is_disetujui' => $isDisetujui,
-            'total_sks' => $totalSks
+            'total_sks' => $totalSks,
+            'batas_sks' => $batasSks,
+            'sisa_sks' => $sisaSks
         );
 
         return $this->frs;
@@ -45,24 +47,18 @@ class ViewFrsResponse
     }
 
 
-    public function  tambahKelas($id_kelas, $mata_kuliah, $kode_matkul, $sks, $grup, $kapasitas, $dosen,
-                                 $ruang, $Waktu_mulai, $waktu_selesai, $periode, $tahun, $nama_dosen)
+    public function  addKelas($id, $namaMatkul, $kodeMatkul, $sks, $grup, $periode, $tahun, $namaDosen)
     {
-        $kelas = array('id_kelas' => $id_kelas,
-            'mata_kuliah' => $mata_kuliah,
-            'kode_matkul' => $kode_matkul,
+        $kelas = array(
+            'id' => $id,
+            'nama_matkul' => $namaMatkul,
+            'kode_matkul' => $kodeMatkul,
             'sks' => $sks,
             'grup' => $grup,
-            'kapasitas' => $kapasitas,
-            'dosen' => $dosen,
-            'ruang' => $ruang,
-            'Waktu_mulai' => $Waktu_mulai,
-            'waktu_selesai' => $waktu_selesai,
             'periode' => $periode,
             'tahun' => $tahun,
-            'nama_dosen' =>$nama_dosen
+            'nama_dosen' => $namaDosen
         );
-
         array_push($this->kelasTerpilih, $kelas);
     }
 }

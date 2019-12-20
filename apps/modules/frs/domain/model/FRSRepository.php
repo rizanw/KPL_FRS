@@ -10,12 +10,17 @@ namespace Kel5\FRS\Domain\Model;
 
 interface FRSRepository
 {
+    public function getKelasById($id) : ?Kelas;
+    public function getDosenByNip($nip) : ?Dosen;
+
     public function getAnakWaliByNip($nip);
+
     public function getKelasTerpilih(FRS $frs);
 
     public function getMahasiswaByNrp(MahasiswaNrp $nrp) : ?Mahasiswa;
     public function getFrsByNrp(MahasiswaNrp $mahasiswaNrp, $periode, $tahun) : ?FRS;
 
+    public function getFrsById($idFrs) : ?FRS;
 
     public function ambilKelasUpmb() : array;
     public function ambilKelasDept() : array;
@@ -23,7 +28,9 @@ interface FRSRepository
     public function confirmFrs($idFrs);
     public function cancelFrs($idFrs);
 
-    public function dropKelas($idKelas);
+    public function dropKelas(Kelas $kelas);
 
-    public function addKelasTerpilih(KelasTerpilih $kelasTerpilih);
+    public function addKelasTerpilih(FRS $frs, Kelas $kelas);
+
+    public function updateKelasKapasitas(Kelas $kelas, $isDrop);
 }

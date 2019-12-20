@@ -3,7 +3,6 @@
 namespace Kel5\FRS\Infrastructure;
 
 use Kel5\FRS\Domain\Model\FRSRepository;
-use Kel5\FRS\Domain\Model\KelasTerpilih;
 use Kel5\FRS\Domain\Model\Mahasiswa;
 use Kel5\FRS\Domain\Model\Dosen;
 use Kel5\FRS\Domain\Model\FRS;
@@ -21,6 +20,33 @@ class SqlFRSRepository implements FRSRepository
     public function __construct(DiInterface $di)
     {
         $this->di = $di;
+    }
+
+    public function getFrsById($idFrs): ?FRS
+    {
+        $db = $this->di->getShared('db');
+        $sql = "SELECT * FROM frs WHERE id = :id";
+
+        $res = $db->fetchOne($sql, \Phalcon\Db::FETCH_ASSOC, [
+            'id' => $idFrs
+        ]);
+
+        $mahasiswaNrp = new MahasiswaNrp($res['nrp']);
+        $mahasiswa = $this->getMahasiswaByNrp($mahasiswaNrp);
+
+        if ($res) {
+            $frs = new FRS(
+                $res['id'],
+                $mahasiswa,
+                $res['periode'],
+                $res['tahun'],
+                $res['is_setuju']
+            );
+
+            $this->getKelasTerpilih($frs);
+
+            return $frs;
+        }
     }
 
     public function getFrsByNrp(MahasiswaNrp $mahasiswaNrp, $periode, $tahun) : ?FRS
@@ -223,29 +249,32 @@ class SqlFRSRepository implements FRSRepository
         return $resultArray;
     }
 
-    public function addKelasTerpilih(KelasTerpilih $kelasTerpilih)
+    public function addKelasTerpilih(FRS $frs, Kelas $kelas)
     {
         $db = $this->di->getShared('db');
 
-        $sql = "SELECT * FROM kelasterpilih WHERE id_frs = :id_frs AND id_kelas = :id_kelas AND nrp = :nrp";
-
-        $res = $db->fetchOne($sql, \Phalcon\Db::FETCH_ASSOC, [
-            'id_frs' => $kelasTerpilih->getIdFrs(),
-            'id_kelas' => $kelasTerpilih->getIdKelas(),
-            'nrp' => $kelasTerpilih->getNrp()
-        ]);
-
-        if(!$res){
+        /*
+         * Check Apakah melebih batas sks?
+         */
+        if ($frs->checkBatasSKs()){
+            /*
+             * Check Apakah kelas sudah di masukkan?
+             */
+            if ($frs->addKelas($kelas)){
             $sql = "INSERT INTO kelasterpilih(id, id_frs, id_kelas, nrp)
                 VALUES (:id, :id_frs, :id_kelas, :nrp)";
 
             $db->query($sql, [
                 'id' => Uuid::uuid4()->toString(),
-                'id_frs' => $kelasTerpilih->getIdFrs(),
-                'id_kelas' => $kelasTerpilih->getIdKelas(),
-                'nrp' => $kelasTerpilih->getNrp()
+                'id_frs' => $frs->getId(),
+                'id_kelas' => $kelas->getId(),
+                'nrp' => $frs->getMahasiswa()->getNrp()->getNrp()
             ]);
+
+            return true;
+            }
         }
+        return false;
     }
 
     public function getKelasTerpilih(FRS $frs)
@@ -254,44 +283,15 @@ class SqlFRSRepository implements FRSRepository
 
         $sql = "SELECT * FROM kelasterpilih WHERE nrp = :nrp";
         $res = $db->fetchAll($sql, \Phalcon\Db::FETCH_ASSOC, [
-            'nrp' => $frs->getNrp()
+            'nrp' => $frs->getMahasiswa()->getNrp()->getNrp()
         ]);
 
-        $daftarKelas = array();
-
         foreach ($res as $r){
-            $sql = "SELECT * FROM kelas WHERE id = :id_kelas";
-            $res = $db->fetchOne($sql, \Phalcon\Db::FETCH_ASSOC, [
-                'id_kelas' => $r['id_kelas'],
-            ]);
-
-            $sql = "SELECT * FROM dosen WHERE nip = :nip";
-            $dosen = $db->fetchOne($sql, \Phalcon\Db::FETCH_ASSOC, [
-                'nip' => $res['nip_dosen'],
-            ]);
-
-            $dosen = new Dosen(
-                $dosen['nip'],
-                $dosen['nama']
-            );
-
-            $kelas = new Kelas(
-                $res['id'],
-                $res['mata_kuliah'],
-                $res['kode_matkul'],
-                $res['sks'],
-                $res['grup'],
-                $res['kapasitas'],
-                $res['ruang'],
-                $res['Waktu_mulai'],
-                $res['waktu_selesai'],
-                $res['periode'],
-                $res['tahun'],
-                $dosen
-            );
-
-            array_push($daftarKelas, $kelas);
+            $kelas = $this->getKelasById($r['id_kelas']);
+            $frs->addKelas($kelas);
         }
+
+        $daftarKelas = $frs->getKelasTerpilih();
 
         return $daftarKelas;
     }
@@ -324,8 +324,72 @@ class SqlFRSRepository implements FRSRepository
 
         $sql = "DELETE FROM kelasterpilih WHERE id_kelas = :id_kelas";
 
-        $db->query($sql, [
+        $res = $db->query($sql, [
             'id_kelas' => $idKelas,
         ]);
+
+        if($res){
+            return true;
+        }
+        return false;
+    }
+
+    public function getKelasById($id) : ?Kelas
+    {
+        $db =  $this->di->getShared('db');
+
+        $sql = "SELECT * FROM kelas WHERE id = :id_kelas";
+        $res = $db->fetchOne($sql, \Phalcon\Db::FETCH_ASSOC, [
+            'id_kelas' => $id
+        ]);
+
+        $dosen = $this->getDosenByNip($res['nip_dosen']);
+
+        $kelas = new Kelas(
+            $res['id'],
+            $res['mata_kuliah'],
+            $res['kode_matkul'],
+            $res['sks'],
+            $res['grup'],
+            $res['kapasitas'],
+            $res['ruang'],
+            $res['waktu_mulai'],
+            $res['waktu_selesai'],
+            $res['periode'],
+            $res['tahun'],
+            $dosen
+        );
+
+        return $kelas;
+    }
+
+    public function getDosenByNip($nip) : ?Dosen
+    {
+        $db =  $this->di->getShared('db');
+
+        $sql = "SELECT * FROM dosen WHERE nip = :nip";
+        $res = $db->fetchOne($sql, \Phalcon\Db::FETCH_ASSOC, [
+            'nip' => $nip
+        ]);
+
+        $dosen = new Dosen(
+            $res['nip'],
+            $res['nama']
+        );
+
+        return $dosen;
+    }
+
+    public function updateKelasKapasitas(Kelas $kelas, $isDrop)
+    {
+        $db =  $this->di->getShared('db');
+        $sql = "UPDATE kelas SET kapasitas = :kapasitas WHERE id = :id_kelas";
+
+        $res = $db->query($sql, [
+            'kapasitas' => $kelas->updateKapasitas($isDrop),
+            'id_kelas' => $kelas->getId()
+        ]);
+
+        return $res;
     }
 }
