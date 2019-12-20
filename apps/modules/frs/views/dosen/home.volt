@@ -31,7 +31,7 @@
 {% block navbar %}
 <a class="nav-link active" href="index">Home</a>
 <a class="nav-link" href="anakwali">Daftar Anak Wali</a>
-<a class="nav-link" href="listkelas">Daftar Peserta Kelas</a>
+<a class="nav-link" href="kelas">Daftar Peserta Kelas</a>
 {% endblock %}
 
 {% block content %}

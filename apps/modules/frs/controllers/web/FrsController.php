@@ -30,7 +30,7 @@ class FrsController extends Controller
     {
         $this->frsRepository = $this->di->getShared('sql_frs_repository');
 
-        $this->isDosen = false; // ganti true untuk mode dosen, dan sebaliknya.
+        $this->isDosen = true; // ganti true untuk mode dosen, dan sebaliknya.
         if ($this->isDosen) {
             $this->nip = "198410162008121002";
         } else {
